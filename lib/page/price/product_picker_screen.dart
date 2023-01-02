@@ -6,6 +6,8 @@ import 'package:profile/db/notes_database.dart';
 import 'package:profile/widget/product_widget.dart';
 import 'dart:async';
 
+import '../../themes.dart';
+
 class ProductPickerScreen extends StatefulWidget {
   final Customers? customer;
 
@@ -51,33 +53,69 @@ class ProductPickerScreenState extends State<ProductPickerScreen> {
     return ThemeSwitchingArea(
       child: Builder(
         builder: (context)=> Scaffold(
-            appBar: AppBar(title: Text('Product picker'), centerTitle: true),
+            appBar: AppBar(title: Text(''), centerTitle: true),
             body: Padding(
-                padding:const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding:const EdgeInsets.symmetric(),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(15)),
-                      child: TextField(
-                        decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            prefixIcon: Icon(
-                              Icons.search,
-                              color: Colors.black87,
+                    Stack(
+                      children: [
+                        Opacity(
+                          opacity: 0.5,
+                          child: ClipPath(
+                            // clipper: WaveClipper(),
+                            child: Container(
+                              color: MyThemes.primary,
+                              height: 200,
                             ),
-                            hintText: "Бүтээглэхүүны нэр",
-                            hintStyle:
-                            TextStyle(color: Colors.grey, fontSize: 15)),
-                        onChanged: (value) => {
-                          _debounce((){
-                            _setKeyword(value);
-                          })},
-                      ),
+                          ),
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                              child:Column(
+                                children: [
+                                  Row(
+                                    children:const <Widget>[
+                                      Icon(Icons.person_outline, color: MyThemes.primary,),
+                                      SizedBox(width: 10,),
+                                      Text('Product picker',style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 30),
+                                    child: Container(
+                                      padding: EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                          color: Colors.grey[200],
+                                          borderRadius: BorderRadius.circular(15)),
+                                      child: TextField(
+                                        decoration: const InputDecoration(
+                                            border: InputBorder.none,
+                                            prefixIcon: Icon(
+                                              Icons.search,
+                                              color: Colors.black87,
+                                            ),
+                                            hintText: "Бүтээглэхүүны нэр",
+                                            hintStyle:
+                                            TextStyle(color: Colors.grey, fontSize: 15)),
+                                        onChanged: (value) => {
+                                          _debounce((){
+                                            _setKeyword(value);
+                                          })},
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ),
+                          ],
+                        )
+                      ],
                     ),
+
                     Expanded(
                         child: FutureBuilder<List<Products>?>(
                           // future: DatabaseHelper.getPikerProducts(widget.customer),

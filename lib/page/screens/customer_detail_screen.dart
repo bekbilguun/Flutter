@@ -8,6 +8,7 @@ import 'package:profile/page/screens/customer_screen.dart';
 import 'package:profile/widget/inner_widget.dart';
 
 import '../../model/price_model.dart';
+import '../../themes.dart';
 import '../../widget/appbar_widget.dart';
 
 
@@ -52,6 +53,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
             ],
           ),
           floatingActionButton: FloatingActionButton(
+            backgroundColor: MyThemes.primary,
             onPressed: () async {
               await Navigator.push(
                   context,
@@ -63,50 +65,64 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
             child: const Icon(Icons.add),
           ),
           body: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: Row(
-                    children:const <Widget>[
-                      Icon(Icons.person, color: Colors.blue,),
-                      SizedBox(width: 10,),
-                      Text('Хэрэглэгчийн мэдээлэл',style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
-                      // IconButton(onPressed:() async {
-                      //   await Navigator.push(context,MaterialPageRoute(builder: (context) => CustomerScreen(customers: widget.customer,))),
-                      // }, icon: Icon(Icons.edit))
-                    ],
-                  ),
-                ),
-                const Divider(height: 5, thickness: 1, color: Colors.grey, indent: 10,endIndent: 10),
-                Padding(
-                  padding:const EdgeInsets.only(left: 10,bottom: 10,top: 10),
-                  child: Row(
-                    children: <Widget>[
-                      const Text('Нэр: ',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                Stack(
+                  children: [
+                    Opacity(
+                      opacity: 0.5,
+                      child: ClipPath(
+                        // clipper: WaveClipper(),
+                        child: Container(
+                          color: MyThemes.primary,
+                          height: 200,
+                        ),
                       ),
-                      Text(widget.customer!.name,
-                        style:const TextStyle(fontSize: 18),
-                      ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:const EdgeInsets.only(left: 10,),
-                  child: Row(
+                    ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                          child: Row(
+                            children:const <Widget>[
+                              Icon(Icons.person_outline, color: MyThemes.primary,),
+                              SizedBox(width: 10,),
+                              Text('Хэрэглэгчийн мэдээлэл',style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding:const EdgeInsets.symmetric(vertical: 18,horizontal: 18),
+                          child: Row(
+                            children: <Widget>[
+                              const Text('Нэр: ',
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                              Text(widget.customer!.name,
+                                style:const TextStyle(fontSize: 18),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding:const EdgeInsets.only(top: 10, left: 20),
+                          child: Row(
 
-                    children: <Widget>[
-                      const Text('Утас: ',
-                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      Text(widget.customer!.phone,
-                        style:const TextStyle(fontSize: 18),
-                      ),
-                    ],
-                  ),
+                            children: <Widget>[
+                              const Text('Утас: ',
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              ),
+                              Text(widget.customer!.phone,
+                                style:const TextStyle(fontSize: 18),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
                 const Padding(
                   padding: EdgeInsets.only(bottom: 15 ,top: 10),
@@ -117,10 +133,9 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                     ),
                   ),
                 ),
-                const Divider(height: 5,thickness: 1, color: Colors.grey, indent: 10,endIndent: 10),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(20.0),
                     child: FutureBuilder<List<Inner>?>(
                       future: DatabaseHelper.innerPriceCustomer(widget.customer),
                       builder: (context, AsyncSnapshot<List<Inner>?> snapshot) {

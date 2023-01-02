@@ -6,6 +6,8 @@ import 'package:profile/page/sale/sale_product_screen.dart';
 import 'package:profile/page/sale/sales_screen.dart';
 import 'package:profile/widget/customers_widget.dart';
 
+import '../../themes.dart';
+
 class SaleScreen extends StatefulWidget {
   const SaleScreen({Key? key}) : super(key: key);
 
@@ -18,97 +20,148 @@ class _SaleScreenState extends State<SaleScreen> {
   Widget build(BuildContext context) {
     return ThemeSwitchingArea(
       child: Builder(
-        builder: (context) => Scaffold(
-            appBar: AppBar(
-              title: const Text('Худалдан авагч'),
-              centerTitle: true,
-              actions: [
-                IconButton(
-                  icon:const Icon(
-                    Icons.list,
-                    color: Colors.white,
+          builder: (context) => Scaffold(
+              appBar: AppBar(
+                actions: [
+                  IconButton(
+                    icon: const Icon(
+                      Icons.list,
+                      color: Colors.white,
+                    ),
+                    onPressed: () async {
+                      await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SalesScreen()));
+                    },
                   ),
-                  onPressed: () async {
-                    await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SalesScreen()));
-                  },
-                ),
-              ],
-            ),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () async {
-                await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SaleScreen()));
-                setState(() {});
-              },
-              child: const Icon(Icons.add),
-            ),
-            body: FutureBuilder<List<Customers>?>(
-              future: DatabaseHelper.getAllCustomers(),
-              builder: (context, AsyncSnapshot<List<Customers>?> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const CircularProgressIndicator();
-                } else if (snapshot.hasError) {
-                  return Center(child: Text(snapshot.error.toString()));
-                } else if (snapshot.hasData) {
-                  if (snapshot.data != null) {
-                    print(snapshot.data);
-                    return ListView.builder(
-                      itemBuilder: (context, index) => CustomerWidget(
-                        customer: snapshot.data![index],
-                        onTap: () async {
-                          await Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SaleProductScreen(
-                                      customer: snapshot.data![index])));
-                          setState(() {});
-                        },
-                        onLongPress: () async {
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: const Text(
-                                      'Are you sure you want to delete this note?'),
-                                  actions: [
-                                    ElevatedButton(
-                                      style: ButtonStyle(
-                                          backgroundColor:
-                                          MaterialStateProperty.all(
-                                              Colors.red)),
-                                      onPressed: () async {
-                                        await DatabaseHelper.deleteCustomer(
-                                            snapshot.data![index]);
-                                        Navigator.pop(context);
-                                        setState(() {});
-                                      },
-                                      child: const Text('Yes'),
-                                    ),
-                                    ElevatedButton(
-                                      onPressed: () => Navigator.pop(context),
-                                      child: const Text('No'),
-                                    ),
-                                  ],
-                                );
-                              });
+                ],
+              ),
+              floatingActionButton: FloatingActionButton(
+                backgroundColor: MyThemes.primary,
+                onPressed: () async {
+                  await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SaleScreen()));
+                  setState(() {});
+                },
+                child: const Icon(Icons.add),
+              ),
+              body: Padding(
+                padding: const EdgeInsets.all(0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Stack(
+                      children: [
+                        Opacity(
+                          opacity: 0.5,
+                          child: ClipPath(
+                            child: Container(
+                              color: MyThemes.primary,
+                              height: 200,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.store_mall_directory_outlined,
+                                color: MyThemes.iconColor,
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              const Text(
+                                'Худалдан авагч',
+                                style: TextStyle(
+                                    fontSize: 22, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.all(0),
+                      child: FutureBuilder<List<Customers>?>(
+                        future: DatabaseHelper.getAllCustomers(),
+                        builder: (context,
+                            AsyncSnapshot<List<Customers>?> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            return Center(
+                                child: Text(snapshot.error.toString()));
+                          } else if (snapshot.hasData) {
+                            if (snapshot.data != null) {
+                              print(snapshot.data);
+                              return ListView.builder(
+                                itemBuilder: (context, index) => CustomerWidget(
+                                  customer: snapshot.data![index],
+                                  onTap: () async {
+                                    await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                SaleProductScreen(
+                                                    customer: snapshot
+                                                        .data![index])));
+                                    setState(() {});
+                                  },
+                                  onLongPress: () async {
+                                    showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            title: const Text(
+                                                'Are you sure you want to delete this note?'),
+                                            actions: [
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                    backgroundColor:
+                                                        MaterialStateProperty
+                                                            .all(Colors.red)),
+                                                onPressed: () async {
+                                                  await DatabaseHelper
+                                                      .deleteCustomer(snapshot
+                                                          .data![index]);
+                                                  Navigator.pop(context);
+                                                  setState(() {});
+                                                },
+                                                child: const Text('Yes'),
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () =>
+                                                    Navigator.pop(context),
+                                                child: const Text('No'),
+                                              ),
+                                            ],
+                                          );
+                                        });
+                                  },
+                                ),
+                                itemCount: snapshot.data!.length,
+                              );
+                            }
+                            return const Center(
+                              child: Text('No notes yet'),
+                            );
+                          }
+                          return const SizedBox.shrink();
                         },
                       ),
-                      itemCount: snapshot.data!.length,
-                    );
-                  }
-                  return const Center(
-                    child: Text('No notes yet'),
-                  );
-                }
-                return const SizedBox.shrink();
-              },
-            ))
-        ),
-      );
+                    ))
+                  ],
+                ),
+              ))),
+    );
   }
 }

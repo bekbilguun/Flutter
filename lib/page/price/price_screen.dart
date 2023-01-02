@@ -6,6 +6,8 @@ import 'package:profile/model/price_model.dart';
 import 'package:profile/page/price/product_picker_screen.dart';
 import 'package:profile/widget/button_widget.dart';
 
+import '../../themes.dart';
+
 class PriceScreen extends StatefulWidget {
   final Prices? prices;
   final Customers? customer;
@@ -35,73 +37,96 @@ class _PriceScreenState extends State<PriceScreen> {
     return ThemeSwitchingArea(
       child: Builder(
         builder: (context) => Scaffold(
-          appBar: AppBar(
-            title: Text(
-              widget.prices == null ? 'Худалдах үнэ' : 'Худалдах үнэ засах',
-              style:const TextStyle(fontSize: 25),
-            ),
-            centerTitle: true,
-          ),
+          appBar: AppBar(),
           body: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+            padding: const EdgeInsets.symmetric(),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 20),
-                  child: Row(
-                    children: <Widget>[
-                      Align(
-                        alignment: Alignment.centerLeft,
+                Stack(
+                  children: [
+                    Opacity(
+                      opacity: 0.5,
+                      child: ClipPath(
+                        // clipper: WaveClipper(),
                         child: Container(
-                          padding: const EdgeInsets.symmetric(),
-                          child: const Text(
-                            'Нэр:',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
+                          color: MyThemes.primary,
+                          height: 200,
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Text(
-                            widget.customer!.name,
-                            style: const TextStyle(fontSize: 18),
+                    ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                          child: Row(
+                            children: <Widget>[
+                              Icon(widget.prices == null ? Icons.add : Icons.edit, color: MyThemes.primary,),
+                              const SizedBox(width: 10,),
+                              Text(widget.prices == null ? 'Худалдах үнэ' : 'Худалдах үнэ засах',style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                            ],
                           ),
                         ),
-                      ),
-                    ],
-                  ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 18,horizontal: 18),
+                          child: Row(
+                            children: <Widget>[
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(),
+                                  child: const Text(
+                                    'Нэр:',
+                                    style: TextStyle(
+                                        fontSize: 18, fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  child: Text(
+                                    widget.customer!.name,
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, left: 20),
+                          child: Row(
+                            children: <Widget>[
+                              Align(
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(),
+                                  child: const Text(
+                                    'Бүтээгдэхүүн:',
+                                    style: TextStyle(
+                                        fontSize: 18, fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                  child: Text(
+                                    widget.prices != null
+                                        ? widget.prices!.productId
+                                        : productId,
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 20),
-                  child: Row(
-                    children: <Widget>[
-                      Align(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(),
-                          child: const Text(
-                            'Бүтээгдэхүүн:',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                      Align(
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                          child: Text(
-                            widget.prices != null
-                                ? widget.prices!.productId
-                                : productId,
-                            style: const TextStyle(fontSize: 18),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+
                 widget.prices == null
                     ? Padding(
                         padding:
@@ -125,36 +150,11 @@ class _PriceScreenState extends State<PriceScreen> {
                                       _setProductId(result);
                                     },
                             )
-                            // ElevatedButton(
-                            //   onPressed: widget.prices != null
-                            //       ? () {}
-                            //       : () async {
-                            //     final result = await Navigator.push(
-                            //       context,
-                            //       // Create the SelectionScreen in the next step.
-                            //       MaterialPageRoute(
-                            //           builder: (context) => ProductPickerScreen(
-                            //               customer: widget.customer)),
-                            //     );
-                            //     _setProductId(result);
-                            //   },
-                            //   style: ButtonStyle(
-                            //       shape: MaterialStateProperty.all(
-                            //           const RoundedRectangleBorder(
-                            //               side: BorderSide(
-                            //                 color: Colors.white,
-                            //                 width: 0.75,
-                            //               ),
-                            //               borderRadius: BorderRadius.all(
-                            //                 Radius.circular(10.0),
-                            //               )))),
-                            //   child: const Text('Бүтээгдэхүүнээ сонгоно уу'),
-                            // ),
                             ),
                       )
                     : const Padding(padding: EdgeInsets.only()),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   child: TextFormField(
                     controller: priceController,
                     decoration: const InputDecoration(

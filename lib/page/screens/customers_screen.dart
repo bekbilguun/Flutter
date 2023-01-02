@@ -4,6 +4,7 @@ import 'package:profile/model/customer_model.dart';
 import 'package:profile/db/notes_database.dart';
 import 'package:profile/page/screens/customer_detail_screen.dart';
 import 'package:profile/widget/customers_widget.dart';
+import '../../themes.dart';
 import '../../widget/appbar_widget.dart';
 import 'customer_screen.dart';
 
@@ -20,8 +21,9 @@ class _CustomersScreenState extends State<CustomersScreen> {
     return ThemeSwitchingArea(
       child: Builder(
         builder: (context) => Scaffold(
-            appBar:AppBar(centerTitle: false),
+            appBar: AppBar(centerTitle: false),
             floatingActionButton: FloatingActionButton(
+              backgroundColor: MyThemes.primary,
               onPressed: () async {
                 await Navigator.push(
                     context,
@@ -36,39 +38,50 @@ class _CustomersScreenState extends State<CustomersScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
-                        Icon(
-                          Icons.person_outline,
-                          color: Colors.blue,
+                  Stack(
+                    children: [
+                      Opacity(
+                        opacity: 0.5,
+                        child: ClipPath(
+                          // clipper: WaveClipper(),
+                          child: Container(
+                            color: MyThemes.primary,
+                            height: 200,
+                          ),
                         ),
-                        SizedBox(
-                          width: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const <Widget>[
+                            Icon(
+                              Icons.person_outline,
+                              color: Colors.red,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Хэрэглэгчид',
+                              style: TextStyle(
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
-                        Text(
-                          'Хэрэглэгч',
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  const Divider(
-                      height: 5,
-                      thickness: 1,
-                      color: Colors.grey,
-                      indent: 10,
-                      endIndent: 10),
-                  Expanded(child: Padding(
-                    padding: const EdgeInsets.all(5),
-                    child:FutureBuilder<List<Customers>?>(
+                  Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(0),
+                      child: FutureBuilder<List<Customers>?>(
                       future: DatabaseHelper.getAllCustomers(),
-                      builder: (context, AsyncSnapshot<List<Customers>?> snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                      builder:
+                          (context, AsyncSnapshot<List<Customers>?> snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return const CircularProgressIndicator();
                         } else if (snapshot.hasError) {
                           return Center(child: Text(snapshot.error.toString()));
@@ -82,8 +95,10 @@ class _CustomersScreenState extends State<CustomersScreen> {
                                   await Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) => CustomerDetailScreen(
-                                              customer: snapshot.data![index])));
+                                          builder: (context) =>
+                                              CustomerDetailScreen(
+                                                  customer:
+                                                      snapshot.data![index])));
                                   setState(() {});
                                 },
                                 onLongPress: () async {
@@ -97,18 +112,20 @@ class _CustomersScreenState extends State<CustomersScreen> {
                                             ElevatedButton(
                                               style: ButtonStyle(
                                                   backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Colors.red)),
+                                                      MaterialStateProperty.all(
+                                                          Colors.red)),
                                               onPressed: () async {
-                                                await DatabaseHelper.deleteCustomer(
-                                                    snapshot.data![index]);
+                                                await DatabaseHelper
+                                                    .deleteCustomer(
+                                                        snapshot.data![index]);
                                                 Navigator.pop(context);
                                                 setState(() {});
                                               },
                                               child: const Text('Yes'),
                                             ),
                                             ElevatedButton(
-                                              onPressed: () => Navigator.pop(context),
+                                              onPressed: () =>
+                                                  Navigator.pop(context),
                                               child: const Text('No'),
                                             ),
                                           ],
@@ -129,9 +146,26 @@ class _CustomersScreenState extends State<CustomersScreen> {
                   ))
                 ],
               ),
-            )
-            ),
+            )),
       ),
     );
   }
 }
+
+// class WaveClipper extends CustomClipper<Path> {
+//   @override
+//   Path getClip(Size size) {
+//   debugPrint(size.width.toString());
+//   var path = new Path();
+//   path.lineTo(0, size.height);
+//   var firstStart = Offset(size.width / 5, size.height);
+//   var firstEnd = Offset(size.width / 2.25, size.height - 50.0);
+//   path.quadraticBezierTo(firstStart.dx, firstStart.dy, firstEnd.dx, firstEnd.dy);
+//   var secondStart = Offset(size.width - (size.width / 3.24), size.height - 105);
+//   var secondEnd = Offset(size.width,size.height -10);
+//   path.quadraticBezierTo(secondStart.dx, secondStart.dy, secondEnd.dx, secondEnd.dy);
+//   path.lineTo(size.width, 0);
+//   path.close();
+//   return path;
+//   }
+// }

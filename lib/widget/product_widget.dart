@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:profile/model/product_model.dart';
+import 'package:profile/themes.dart';
 
 class ProductWidget extends StatelessWidget {
   final Products products;
@@ -22,46 +23,52 @@ class ProductWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 6),
         child: Card(
           elevation: 5,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Align(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 18, vertical: 18),
-                  child: Text(
-                    products.name,
-                    style: const TextStyle(fontSize: 20),
-                    softWrap: true,
-                  ),
-                ),
-              ),
+          child:Column(
+            children: [
               Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Align(
-                      child: Column(children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            const Text('Баркод: '),
-                            Text(
-                              products.barcode,
-                              softWrap: true,
-                              textAlign: TextAlign.end,
-                            ),
-                          ],
-                        )
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Align(
+                    child: Container(
+                      padding:
+                      const EdgeInsets.all(30),
+                      child: Text(
+                        products.name,
+                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                        softWrap: true,
+                      ),
+                    ),
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Align(
+                          child: Column(children: <Widget>[
+                            Row(
+                              children: <Widget>[
+                                const Text('Баркод: '),
+                                Text(
+                                  products.barcode,
+                                  softWrap: true,
+                                  textAlign: TextAlign.end,
+                                ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Icon(Icons.arrow_forward,color: MyThemes.iconColor,),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                              ],
+                            )
+                          ]),
+                        ),
                       ]),
-                    ),
-                    Align(
-                      child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 18, vertical: 18),
-                          child: const Icon(Icons.arrow_right_outlined)),
-                    ),
-                  ]),
+                ],
+              ),
             ],
-          ),
+          )
+
         ),
       ),
     );

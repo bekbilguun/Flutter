@@ -2,6 +2,7 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:profile/db/notes_database.dart';
 import 'package:profile/model/product_model.dart';
+import 'package:profile/themes.dart';
 import 'package:profile/widget/appbar_widget.dart';
 
 import '../../widget/button_widget.dart';
@@ -24,46 +25,59 @@ class ProductScreen extends StatelessWidget {
     return ThemeSwitchingArea(
       child: Builder(
         builder: (context) => Scaffold(
-          appBar: buildAppBar(context),
-          // AppBar(
-          //   title: Text( products == null
-          //       ? 'Add a product'
-          //       : 'Edit product'
-          //   ),
-          //   centerTitle: true,
-          // ),
+          appBar:
+          AppBar(
+            title: Text( products == null
+                ? 'Add a product'
+                : 'Edit product'
+            ),
+            centerTitle: true,
+          ),
           body: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+            padding: const EdgeInsets.all(0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const <Widget>[
-                      Icon(
-                        Icons.store_mall_directory_outlined,
-                        color: Colors.blue,
+                Stack(
+                  children: [
+                    Opacity(
+                      opacity: 0.5,
+                      child: ClipPath(
+                        child: Container(
+                          color: MyThemes.primary,
+                          height: 200,
+                        ),
                       ),
-                      SizedBox(
-                        width: 10,
+                    ),
+                    Container(
+                      color: MyThemes.primary,
+                      height: 200,
+                      child:Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const <Widget>[
+                            Icon(
+                              Icons.store_mall_directory_outlined,
+                              color: Colors.red,
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              'Бүтээгдэхүүн',
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
                       ),
-                      Text(
-                        'Бүтээгдэхүүн',
-                        style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                const Divider(
-                  height: 5,
-                  thickness: 1,
-                  color: Colors.grey,
-                ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 30.0, top: 30),
+                  padding: const EdgeInsets.only(left: 30,right: 30, top: 30),
                   child: TextFormField(
                     controller: nameController,
                     maxLines: 1,
@@ -80,7 +94,8 @@ class ProductScreen extends StatelessWidget {
                             ))),
                   ),
                 ),
-                TextFormField(
+                Padding(padding: const EdgeInsets.only(left: 30,right: 30, top: 30),
+                child:TextFormField(
                   controller: barcodeController,
                   decoration: const InputDecoration(
                       hintText: 'Type here the barcode',
@@ -97,10 +112,11 @@ class ProductScreen extends StatelessWidget {
                   onChanged: (str) {},
                   maxLength: 10,
                   // maxLines: 5,
-                ),
+                ),),
+
                 const Spacer(),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 20.0),
+                  padding: const EdgeInsets.only(left: 30,right: 30, bottom: 30),
                   child: SizedBox(
                       height: 45,
                       width: MediaQuery.of(context).size.width,

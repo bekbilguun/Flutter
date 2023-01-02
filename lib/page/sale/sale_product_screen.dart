@@ -6,8 +6,10 @@ import 'package:profile/model/inner_model.dart';
 import 'package:profile/model/sale_model.dart';
 import 'package:profile/model/sale_product_model.dart';
 import 'package:profile/page/sale/sales_screen.dart';
+import 'package:profile/widget/appbar_widget.dart';
 import 'package:profile/widget/sale_widget.dart';
 
+import '../../themes.dart';
 import '../../widget/button_widget.dart';
 
 class SaleProductScreen extends StatefulWidget {
@@ -36,60 +38,75 @@ class _SaleProductScreenState extends State<SaleProductScreen> {
     return ThemeSwitchingArea(
       child: Builder(
         builder: (context) => Scaffold(
-          appBar: AppBar(
-            title: const Text('Борлуулалт'),
-            centerTitle: true,
-          ),
+          appBar: AppBar(),
           body: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: Row(
-                    children: [
-                      Row(
-                        children: const <Widget>[
-                          Icon(
-                            Icons.shopping_basket,
-                            color: Colors.blue,
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Худалтан авалт',
-                            style: TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.bold),
-                          )
-                        ],
+                Stack(
+                  children: [
+                    Opacity(
+                      opacity: 0.5,
+                      child: ClipPath(
+                        child: Container(
+                          color: MyThemes.primary,
+                          height: 200,
+                        ),
                       ),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: Row(
-                    children: [
-                      Row(
-                        children: <Widget>[
-                          const Text(
-                            'Худалдан авагч: ',
-                            style: TextStyle(fontSize: 18),
+                    ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding:
+                          const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                          child: Row(
+                            children: [
+                              Row(
+                                children: const <Widget>[
+                                  Icon(
+                                    Icons.shopping_basket,
+                                    color: MyThemes.primary,
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text(
+                                    'Борлуулалт',
+                                    style: TextStyle(
+                                        fontSize: 22),
+                                  )
+                                ],
+                              ),
+                            ],
                           ),
-                          Text(
-                            widget.customer!.name,
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        Padding(
+                          padding:
+                          const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                          child: Row(
+                            children: [
+                              Row(
+                                children: <Widget>[
+                                  const Text(
+                                    'Худалдан авагч: ',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  Text(
+                                    widget.customer!.name,
+                                    style: const TextStyle(
+                                        fontSize: 18),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ],
-                  ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
+
                 const Padding(
                   padding: EdgeInsets.only(bottom: 15, top: 10),
                   child: Center(
@@ -210,6 +227,7 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
               customerId: widget.customer!.id,
               customerName: widget.customer!.name,
               total: _total,
+              // createdAt: "2020-10-12 13:35:06
             );
             final saleId = await DatabaseHelper.addSale(saleModel);
             for (var element in widget.products) {
@@ -221,7 +239,7 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
                   productName: element.productId,
                   total: element.total,
                   price: double.parse(element.price),
-                  count: element.count);
+                  count: element.count,);
               if (element.count > 0) {
                 await DatabaseHelper.addSaleProduct(saleproductModel);
               }

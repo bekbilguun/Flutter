@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:profile/model/price_model.dart';
 import 'package:profile/db/notes_database.dart';
 import 'package:profile/widget/prices_widget.dart';
+import '../../themes.dart';
 import 'price_screen.dart';
 
 class PricesScreen extends StatefulWidget {
@@ -23,6 +24,7 @@ class PricesScreenState extends State<PricesScreen> {
               centerTitle: true,
             ),
             floatingActionButton: FloatingActionButton(
+              backgroundColor: MyThemes.primary,
               onPressed: () async {
                 await Navigator.push(
                     context,

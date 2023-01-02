@@ -6,7 +6,7 @@ import 'package:profile/utils/user_preferences.dart';
 
 AppBar buildAppBar(BuildContext context) {
   final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-  final icon = CupertinoIcons.moon_stars;
+  final icon = isDarkMode ? CupertinoIcons.sun_max : CupertinoIcons.moon_stars;
 
   return AppBar(
     leading: BackButton(),
@@ -15,7 +15,7 @@ AppBar buildAppBar(BuildContext context) {
     actions: [
       ThemeSwitcher(
         builder: (context) => IconButton(
-          icon: Icon(icon,color: Theme.of(context).backgroundColor),
+          icon: Icon(icon,color: MyThemes.primary),
           onPressed: () {
             final theme = isDarkMode ? MyThemes.lightTheme : MyThemes.darkTheme;
 

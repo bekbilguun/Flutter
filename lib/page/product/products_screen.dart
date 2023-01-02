@@ -4,6 +4,7 @@ import 'package:profile/model/product_model.dart';
 import 'package:profile/db/notes_database.dart';
 import 'package:profile/widget/appbar_widget.dart';
 import 'package:profile/widget/product_widget.dart';
+import '../../themes.dart';
 import 'product_screen.dart';
 
 class ProductsScreen extends StatefulWidget {
@@ -21,11 +22,9 @@ class ProductsScreenState extends State<ProductsScreen> {
         builder: (context) => Scaffold(
             appBar:
             // buildAppBar(context),
-            AppBar(
-              title: const Text('Products'),
-              centerTitle: true,
-            ),
+            AppBar(),
             floatingActionButton: FloatingActionButton(
+              backgroundColor: MyThemes.primary,
               onPressed: () async {
                 await Navigator.push(
                     context,
@@ -40,36 +39,44 @@ class ProductsScreenState extends State<ProductsScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20, vertical: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
-                        Icon(
-                          Icons.store_mall_directory_outlined,
-                          color: Colors.blue,
+                  Stack(
+                    children: [
+                      Opacity(
+                        opacity: 0.5,
+                        child: ClipPath(
+                          child: Container(
+                            color: MyThemes.primary,
+                            height: 200,
+                          ),
                         ),
-                        SizedBox(
-                          width: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 20),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(
+                              Icons.store_mall_directory_outlined,
+                              color: MyThemes.iconColor,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Text(
+                              'Бүтээгдэхүүн',
+                              style: TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.bold),
+                            ),
+                          ],
                         ),
-                        Text(
-                          'Бүтээгдэхүүн',
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  const Divider(
-                      height: 5,
-                      thickness: 1,
-                      color: Colors.grey,
-                      indent: 10,
-                      endIndent: 10),
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(5),
+                    child:
+                    Padding(
+                      padding: const EdgeInsets.symmetric(),
                       child: FutureBuilder<List<Products>?>(
                         future: DatabaseHelper.getAllProducts(),
                         builder:
