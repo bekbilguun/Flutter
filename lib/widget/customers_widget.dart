@@ -52,7 +52,7 @@ class CustomerWidget extends StatelessWidget {
                     // ),
                     Row(
                       children: const <Widget>[
-                        Text("Дэлгэрэнгүй"),
+                        // Text("Дэлгэрэнгүй"),
                         Icon(
                           Icons.arrow_right_outlined,
                           shadows: [Shadow(blurRadius: 1)],

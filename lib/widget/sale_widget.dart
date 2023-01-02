@@ -94,12 +94,12 @@ class _SaleWidgetState extends State<SaleWidget> {
               ]),
             ),
             Padding(
-              padding: EdgeInsets.only(bottom: 10, top: 5),
+              padding: const EdgeInsets.only(bottom: 10, top: 5),
               child: Row(
                 children: <Widget>[
                   const Text(
                     'Авах тоо       ',
-                    style: const TextStyle(
+                    style:  TextStyle(
                       fontSize: 14.0,
                     ),
                   ),
@@ -114,7 +114,7 @@ class _SaleWidgetState extends State<SaleWidget> {
                         )),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(left: 10, right: 10),
+                    padding:const EdgeInsets.only(left: 10, right: 10),
                     child: Text(
                       '$_count',
                       style: const TextStyle(

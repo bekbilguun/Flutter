@@ -40,18 +40,16 @@ class SaleProductsWidget extends StatelessWidget {
                       children: <Widget>[
                        const Align(alignment: Alignment.topRight),
                        const Text(
-                          'Нэгж үнэ',
+                          'Нэгж үнэ  ',
                           style: TextStyle(
                               fontSize: 12.0,
-                              fontFamily: 'Roboto',
-                              color:  Color(0xFF9E9E9E)),
+                              fontFamily: 'Roboto',),
                         ),
                         Text(
                           saleProduct.price.toString(),
                           style:const TextStyle(
                               fontSize: 14.0,
-                              fontFamily: 'Roboto',
-                              color: Color(0xFF212121)),
+                              fontFamily: 'Roboto'),
                         ),
                       ],
                     ),
@@ -62,14 +60,12 @@ class SaleProductsWidget extends StatelessWidget {
                           'тоо ширхэг  ',
                           style: TextStyle(
                               fontSize: 12.0,
-                              fontFamily: 'Roboto',
-                              color: Color(0xFF9E9E9E)),
+                              fontFamily: 'Roboto'),
                         ),
                         Text(saleProduct.count.toString(),
                           style:const TextStyle(
                               fontSize: 14.0,
-                              fontFamily: 'Roboto',
-                              color: Color(0xFF212121)),
+                              fontFamily: 'Roboto'),
                         ),
                       ],
                     ),
@@ -77,18 +73,16 @@ class SaleProductsWidget extends StatelessWidget {
                       children: <Widget>[
                        const Align(alignment: Alignment.topRight),
                        const Text(
-                          'Үнэ',
+                          'Үнэ  ',
                           style: TextStyle(
                               fontSize: 12.0,
-                              fontFamily: 'Roboto',
-                              color:  Color(0xFF9E9E9E)),
+                              fontFamily: 'Roboto'),
                         ),
                         Text(
                           saleProduct.total.toString(),
                           style:const TextStyle(
                               fontSize: 14.0,
-                              fontFamily: 'Roboto',
-                              color: Color(0xFF212121)),
+                              fontFamily: 'Roboto'),
                         ),
                       ],
                     ),

@@ -25,7 +25,7 @@ class InnerWidget extends StatelessWidget {
             children: [
               Container(
                 alignment: Alignment.centerLeft,
-                padding: new EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                 child: Text(inner.productId,
                     style: const TextStyle(
                         fontSize: 18, fontWeight: FontWeight.bold)),
@@ -37,39 +37,35 @@ class InnerWidget extends StatelessWidget {
                       children: <Widget>[
                     Row(
                       children: <Widget>[
-                        Align(alignment: Alignment.topRight),
-                        Text(
-                          'Үнэ',
+                        const Align(alignment: Alignment.topRight),
+                        const Text(
+                          'Үнэ  ',
                           style: TextStyle(
                               fontSize: 12.0,
-                              fontFamily: 'Roboto',
-                              color: new Color(0xFF9E9E9E)),
+                              fontFamily: 'Roboto'),
                         ),
                         Text(
                           inner.price,
-                          style: TextStyle(
+                          style:const TextStyle(
                               fontSize: 14.0,
-                              fontFamily: 'Roboto',
-                              color: Color(0xFF212121)),
+                              fontFamily: 'Roboto'),
                         ),
                       ],
                     ),
-                    Row(
-                      children: <Widget>[
+                      Row(
+                      children:const <Widget>[
                         Align(alignment: Alignment.bottomRight),
-                        Text(
+                       Text(
                           'тоо ширхэг  ',
                           style: TextStyle(
                               fontSize: 12.0,
-                              fontFamily: 'Roboto',
-                              color: Color(0xFF9E9E9E)),
+                              fontFamily: 'Roboto'),
                         ),
-                        Text(
+                       Text(
                           '50',
                           style: TextStyle(
                               fontSize: 14.0,
-                              fontFamily: 'Roboto',
-                              color: Color(0xFF212121)),
+                              fontFamily: 'Roboto'),
                         ),
                       ],
                     ),
@@ -78,7 +74,7 @@ class InnerWidget extends StatelessWidget {
               Container(
                   padding:
                   const EdgeInsets.symmetric(horizontal: 18),
-                  child: Icon(Icons.edit)
+                  child:const Icon(Icons.edit)
               ),
             ],
         ),

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.myUser;
+    final  user = UserPreferences.myUser;
 
     return ThemeProvider(
       initTheme: user.isDarkMode ? MyThemes.darkTheme : MyThemes.lightTheme,
