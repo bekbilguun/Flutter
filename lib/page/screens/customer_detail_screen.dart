@@ -72,7 +72,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                 Stack(
                   children: [
                     Opacity(
-                      opacity: 0.5,
+                      opacity: 0.8,
                       child: ClipPath(
                         // clipper: WaveClipper(),
                         child: Container(
@@ -84,17 +84,18 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                     Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                          padding: const EdgeInsets.all(20),
                           child: Row(
-                            children:const <Widget>[
-                              Icon(Icons.person_outline, color: MyThemes.primary,),
-                              SizedBox(width: 10,),
-                              Text('Хэрэглэгчийн мэдээлэл',style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children:<Widget>[
+                              Icon(Icons.person_outline, color: MyThemes.iconColor,),
+                              const SizedBox(width: 10,),
+                              const Text('Хэрэглэгчийн мэдээлэл',style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
                             ],
                           ),
                         ),
                         Padding(
-                          padding:const EdgeInsets.symmetric(vertical: 18,horizontal: 18),
+                          padding:const EdgeInsets.all(20),
                           child: Row(
                             children: <Widget>[
                               const Text('Нэр: ',
@@ -107,7 +108,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                           ),
                         ),
                         Padding(
-                          padding:const EdgeInsets.only(top: 10, left: 20),
+                          padding:const EdgeInsets.only(left: 20),
                           child: Row(
 
                             children: <Widget>[
@@ -135,7 +136,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(0.0),
                     child: FutureBuilder<List<Inner>?>(
                       future: DatabaseHelper.innerPriceCustomer(widget.customer),
                       builder: (context, AsyncSnapshot<List<Inner>?> snapshot) {

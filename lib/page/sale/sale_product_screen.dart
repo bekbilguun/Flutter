@@ -47,7 +47,7 @@ class _SaleProductScreenState extends State<SaleProductScreen> {
                 Stack(
                   children: [
                     Opacity(
-                      opacity: 0.5,
+                      opacity: 0.8,
                       child: ClipPath(
                         child: Container(
                           color: MyThemes.primary,
@@ -61,17 +61,18 @@ class _SaleProductScreenState extends State<SaleProductScreen> {
                           padding:
                           const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Row(
-                                children: const <Widget>[
+                                children: <Widget>[
                                   Icon(
                                     Icons.shopping_basket,
-                                    color: MyThemes.primary,
+                                    color: MyThemes.iconColor,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   ),
-                                  Text(
+                                  const Text(
                                     'Борлуулалт',
                                     style: TextStyle(
                                         fontSize: 22),
@@ -106,7 +107,6 @@ class _SaleProductScreenState extends State<SaleProductScreen> {
                     )
                   ],
                 ),
-
                 const Padding(
                   padding: EdgeInsets.only(bottom: 15, top: 10),
                   child: Center(
@@ -119,7 +119,7 @@ class _SaleProductScreenState extends State<SaleProductScreen> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(0),
                     child: FutureBuilder<List<Inner>?>(
                       future:
                           DatabaseHelper.innerPriceCustomer(widget.customer),
@@ -189,16 +189,20 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          physics: const ScrollPhysics(),
-          itemBuilder: (context, index) => SaleWidget(
-            inner: widget.products[index],
-            refresh: _refreshTotal,
+        Expanded(child: Padding(
+          padding: EdgeInsets.all(0),
+          child: ListView.builder(
+            scrollDirection: Axis.vertical,
+            shrinkWrap: true,
+            physics: const ScrollPhysics(),
+            itemBuilder: (context, index) => SaleWidget(
+              inner: widget.products[index],
+              refresh: _refreshTotal,
+            ),
+            itemCount: widget.products.length,
           ),
-          itemCount: widget.products.length,
-        ),
+        )),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -219,7 +223,8 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
             ),
           ],
         ),
-        ButtonWidget(
+        Padding(padding: EdgeInsets.only(bottom: 20),
+        child: ButtonWidget(
           text: 'Дуусгах',
           onClicked: () async {
             final Sale saleModel = Sale(
@@ -232,14 +237,14 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
             final saleId = await DatabaseHelper.addSale(saleModel);
             for (var element in widget.products) {
               final SaleProduct saleproductModel = SaleProduct(
-                  id: widget.sale?.id,
-                  saleId: saleId,
-                  customerId: widget.customer!.id,
-                  productId: widget.customer!.id,
-                  productName: element.productId,
-                  total: element.total,
-                  price: double.parse(element.price),
-                  count: element.count,);
+                id: widget.sale?.id,
+                saleId: saleId,
+                customerId: widget.customer!.id,
+                productId: widget.customer!.id,
+                productName: element.productId,
+                total: element.total,
+                price: double.parse(element.price),
+                count: element.count,);
               if (element.count > 0) {
                 await DatabaseHelper.addSaleProduct(saleproductModel);
               }
@@ -250,6 +255,8 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
             setState(() {});
           },
         )
+          ,)
+
       ],
     );
   }

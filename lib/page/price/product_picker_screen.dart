@@ -62,7 +62,7 @@ class ProductPickerScreenState extends State<ProductPickerScreen> {
                     Stack(
                       children: [
                         Opacity(
-                          opacity: 0.5,
+                          opacity: 0.8,
                           child: ClipPath(
                             // clipper: WaveClipper(),
                             child: Container(

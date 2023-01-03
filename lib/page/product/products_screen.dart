@@ -20,9 +20,7 @@ class ProductsScreenState extends State<ProductsScreen> {
     return ThemeSwitchingArea(
       child: Builder(
         builder: (context) => Scaffold(
-            appBar:
-            // buildAppBar(context),
-            AppBar(),
+            appBar:AppBar(),
             floatingActionButton: FloatingActionButton(
               backgroundColor: MyThemes.primary,
               onPressed: () async {
@@ -42,7 +40,7 @@ class ProductsScreenState extends State<ProductsScreen> {
                   Stack(
                     children: [
                       Opacity(
-                        opacity: 0.5,
+                        opacity: 0.8,
                         child: ClipPath(
                           child: Container(
                             color: MyThemes.primary,
@@ -76,7 +74,7 @@ class ProductsScreenState extends State<ProductsScreen> {
                   Expanded(
                     child:
                     Padding(
-                      padding: const EdgeInsets.symmetric(),
+                      padding: const EdgeInsets.all(0),
                       child: FutureBuilder<List<Products>?>(
                         future: DatabaseHelper.getAllProducts(),
                         builder:

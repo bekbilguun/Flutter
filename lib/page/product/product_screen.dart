@@ -25,14 +25,7 @@ class ProductScreen extends StatelessWidget {
     return ThemeSwitchingArea(
       child: Builder(
         builder: (context) => Scaffold(
-          appBar:
-          AppBar(
-            title: Text( products == null
-                ? 'Add a product'
-                : 'Edit product'
-            ),
-            centerTitle: true,
-          ),
+          appBar: AppBar(),
           body: Padding(
             padding: const EdgeInsets.all(0),
             child: Column(
@@ -41,7 +34,7 @@ class ProductScreen extends StatelessWidget {
                 Stack(
                   children: [
                     Opacity(
-                      opacity: 0.5,
+                      opacity: 0.8,
                       child: ClipPath(
                         child: Container(
                           color: MyThemes.primary,
@@ -49,35 +42,33 @@ class ProductScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Container(
-                      color: MyThemes.primary,
-                      height: 200,
-                      child:Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const <Widget>[
-                            Icon(
-                              Icons.store_mall_directory_outlined,
-                              color: Colors.red,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              'Бүтээгдэхүүн',
-                              style: TextStyle(
-                                  fontSize: 22, fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(
+                            Icons.store_mall_directory_outlined,
+                            color: MyThemes.iconColor,
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            products == null
+                                ? 'Бүтээгдэхүүн'
+                                : 'Бүтээгдэхүүн засах',
+                            style: const TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 30,right: 30, top: 30),
+                  padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
                   child: TextFormField(
                     controller: nameController,
                     maxLines: 1,
@@ -94,29 +85,31 @@ class ProductScreen extends StatelessWidget {
                             ))),
                   ),
                 ),
-                Padding(padding: const EdgeInsets.only(left: 30,right: 30, top: 30),
-                child:TextFormField(
-                  controller: barcodeController,
-                  decoration: const InputDecoration(
-                      hintText: 'Type here the barcode',
-                      labelText: 'barcode',
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.black,
-                            width: 0.75,
-                          ),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
-                          ))),
-                  keyboardType: TextInputType.number,
-                  onChanged: (str) {},
-                  maxLength: 10,
-                  // maxLines: 5,
-                ),),
-
+                Padding(
+                  padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
+                  child: TextFormField(
+                    controller: barcodeController,
+                    decoration: const InputDecoration(
+                        hintText: 'Type here the barcode',
+                        labelText: 'barcode',
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 0.75,
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
+                            ))),
+                    keyboardType: TextInputType.number,
+                    onChanged: (str) {},
+                    maxLength: 10,
+                    // maxLines: 5,
+                  ),
+                ),
                 const Spacer(),
                 Padding(
-                  padding: const EdgeInsets.only(left: 30,right: 30, bottom: 30),
+                  padding:
+                      const EdgeInsets.only(left: 30, right: 30, bottom: 30),
                   child: SizedBox(
                       height: 45,
                       width: MediaQuery.of(context).size.width,

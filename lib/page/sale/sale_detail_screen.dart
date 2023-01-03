@@ -36,7 +36,7 @@ class _SaleDetailScreenState extends State<SaleDetailScreen> {
                 Stack(
                   children: [
                     Opacity(
-                      opacity: 0.5,
+                      opacity: 0.8,
                       child: ClipPath(
                         // clipper: WaveClipper(),
                         child: Container(
@@ -59,23 +59,6 @@ class _SaleDetailScreenState extends State<SaleDetailScreen> {
                                   ],
                                 ),
                               ),
-                              // Padding(
-                              //   padding:const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                              //   child: Row(
-                              //     children: [
-                              //       Row(
-                              //         children: <Widget>[
-                              //           const  Text('Нэр: ',
-                              //             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                              //           ),
-                              //           Text(widget.sale!.customerName,
-                              //             style:const TextStyle(fontSize: 18),
-                              //           ),
-                              //         ],
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
                               Padding(
                                 padding:const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                                 child: Row(
@@ -133,7 +116,7 @@ class _SaleDetailScreenState extends State<SaleDetailScreen> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: FutureBuilder<List<SaleProduct>?>(
                       future: DatabaseHelper.getAllSaleProducts(widget.sale),
                       builder: (context, AsyncSnapshot<List<SaleProduct>?> snapshot) {

@@ -5,6 +5,7 @@ import 'package:profile/model/user.dart';
 import 'package:profile/page/edit_profile_page.dart';
 import 'package:profile/page/product/products_screen.dart';
 import 'package:profile/page/sale/sale_screen.dart';
+import 'package:profile/page/sale/sales_screen.dart';
 import 'package:profile/page/screens/customers_screen.dart';
 import 'package:profile/utils/user_preferences.dart';
 import 'package:profile/widget/appbar_widget.dart';
@@ -43,14 +44,16 @@ class _ProfilePageState extends State<ProfilePage> {
               const SizedBox(height: 24),
               Row(
                 children: [
-                  Padding(padding:const EdgeInsets.symmetric(horizontal: 10),
+                  Padding(padding:const EdgeInsets.symmetric(horizontal: 15),
                   child: buildProductButton(),),
-                  Padding(padding:const EdgeInsets.symmetric(horizontal: 10),
+                  Padding(padding:const EdgeInsets.symmetric(horizontal: 5),
                     child: buildCustomerButton(),),
-                  Padding(padding:const EdgeInsets.symmetric(horizontal: 10),
-                    child: buildSaleButton(),),
+                  Padding(padding:const EdgeInsets.symmetric(horizontal: 5),
+                    child: buildSalesButton(),),
                 ],
               ),
+              Padding(padding:const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                child: buildSaleButton(),),
               // Center(child: buildCustomerButton()),
               // Center(child: buildProductButton()),
               // Center(child: buildSaleButton()),
@@ -100,6 +103,14 @@ class _ProfilePageState extends State<ProfilePage> {
     onClicked: ()  async {
       await Navigator.push(context,
           MaterialPageRoute(builder: (context) => const SaleScreen()));
+      setState(() {});
+    },
+  );
+  Widget buildSalesButton() => ButtonWidget(
+    text: 'Sales',
+    onClicked: ()  async {
+      await Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const SalesScreen()));
       setState(() {});
     },
   );

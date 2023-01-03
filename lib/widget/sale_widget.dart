@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:profile/model/inner_model.dart';
+import 'package:profile/themes.dart';
 
 class SaleWidget extends StatefulWidget {
   final Inner inner;
@@ -44,94 +45,90 @@ class _SaleWidgetState extends State<SaleWidget> {
   Widget build(BuildContext context) {
     return InkWell(
         child: Card(
-      elevation: 5,
+          elevation: 0,
       child: Padding(
-        padding: const EdgeInsets.only(left: 25),
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: [
-            Container(
-              alignment: Alignment.topLeft,
-              padding: const EdgeInsets.symmetric(),
-              child: Text(widget.inner.productId,
-                  style: const TextStyle(
-                      fontSize: 22, fontWeight: FontWeight.bold)),
-            ),
-            Container(
-              alignment: Alignment.center,
-              child: Column(children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    const Text(
-                      'Нэгж үнэ: ',
-                      style: TextStyle(fontSize: 12.0, fontFamily: 'Roboto'),
-                    ),
-                    Text(
-                      widget.inner.price,
-                      style:
-                          const TextStyle(fontSize: 14.0, fontFamily: 'Roboto'),
-                    ),
-                  ],
-                ),
-                // Row(
-                //   children: <Widget>[
-                //     const Align(alignment: Alignment.bottomRight),
-                //     const Text(
-                //       'Нийт үнэ: ',
-                //       style: TextStyle(
-                //           fontSize: 12.0,
-                //           fontFamily: 'Roboto',
-                //           color: Color(0xFF9E9E9E)),
-                //     ),
-                //     Text(
-                //       '$_total',
-                //       style: const TextStyle(
-                //           fontSize: 14.0,
-                //           fontFamily: 'Roboto',
-                //           color: Color(0xFF212121)),
-                //     ),
-                //   ],
-                // ),
-              ]),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10, top: 5),
-              child: Row(
-                children: <Widget>[
-                  const Text(
-                    'Авах тоо       ',
-                    style:  TextStyle(
-                      fontSize: 14.0,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 50,
-                    height: 25,
-                    child: ElevatedButton(
-                        onPressed: _minusCount,
-                        child: const Text(
-                          '-',
-                          style: TextStyle(fontSize: 21),
-                        )),
-                  ),
-                  Padding(
-                    padding:const EdgeInsets.only(left: 10, right: 10),
-                    child: Text(
-                      '$_count',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding: const EdgeInsets.symmetric(),
+                  child: Text(widget.inner.productId,
                       style: const TextStyle(
-                        fontSize: 16.0,
-                      ),
+                          fontSize: 22, fontWeight: FontWeight.bold)),
+                ),
+
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.center,
+                  child: Column(children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        const Text(
+                          'Нэгж үнэ: ',
+                          style:
+                              TextStyle(fontSize: 12.0, fontFamily: 'Roboto'),
+                        ),
+                        Text(
+                          widget.inner.price,
+                          style: const TextStyle(
+                              fontSize: 14.0,
+                              fontFamily: 'Roboto',
+                              color: MyThemes.primary),
+                        ),
+                      ],
                     ),
+                  ]),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(5),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: ElevatedButton(
+                                onPressed: _minusCount,
+                                child: const Text(
+                                  '-',
+                                  style: TextStyle(fontSize: 21),
+                                )),
+                          ),
+                          const SizedBox(width: 10,),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10, right: 10),
+                            child: Text(
+                              '$_count',
+                              style: const TextStyle(
+                                  fontSize: 16.0, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          const SizedBox(width: 10,),
+                          SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: ElevatedButton(
+                                onPressed: _sumCount,
+                                child: const Text("+",
+                                    style: TextStyle(fontSize: 21))),
+                          ),
+                        ],
+                      )
+                    ],
                   ),
-                  SizedBox(
-                    width: 50,
-                    height: 25,
-                    child: ElevatedButton(
-                        onPressed: _sumCount,
-                        child: const Text("+", style: TextStyle(fontSize: 21))),
-                  ),
-                ],
-              ),
-            )
+                ),
+              ],
+            ),
+            const Divider(thickness: 0.5,)
           ],
         ),
       ),

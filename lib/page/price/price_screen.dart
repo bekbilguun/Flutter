@@ -45,7 +45,7 @@ class _PriceScreenState extends State<PriceScreen> {
                 Stack(
                   children: [
                     Opacity(
-                      opacity: 0.5,
+                      opacity: 0.8,
                       child: ClipPath(
                         // clipper: WaveClipper(),
                         child: Container(
@@ -59,8 +59,9 @@ class _PriceScreenState extends State<PriceScreen> {
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Icon(widget.prices == null ? Icons.add : Icons.edit, color: MyThemes.primary,),
+                              Icon(widget.prices == null ? Icons.add : Icons.edit, color: MyThemes.iconColor,),
                               const SizedBox(width: 10,),
                               Text(widget.prices == null ? 'Худалдах үнэ' : 'Худалдах үнэ засах',style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
                             ],

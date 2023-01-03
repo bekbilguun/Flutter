@@ -20,9 +20,9 @@ class ProductWidget extends StatelessWidget {
       onLongPress: onLongPress,
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 6),
+        padding: const EdgeInsets.only(top: 10),
         child: Card(
-          elevation: 5,
+          elevation: 0,
           child:Column(
             children: [
               Row(
@@ -66,6 +66,7 @@ class ProductWidget extends StatelessWidget {
                       ]),
                 ],
               ),
+              const Divider(thickness: 0.5,)
             ],
           )
 

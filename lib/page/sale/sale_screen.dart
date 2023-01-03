@@ -37,17 +37,6 @@ class _SaleScreenState extends State<SaleScreen> {
                   ),
                 ],
               ),
-              floatingActionButton: FloatingActionButton(
-                backgroundColor: MyThemes.primary,
-                onPressed: () async {
-                  await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SaleScreen()));
-                  setState(() {});
-                },
-                child: const Icon(Icons.add),
-              ),
               body: Padding(
                 padding: const EdgeInsets.all(0),
                 child: Column(
@@ -56,7 +45,7 @@ class _SaleScreenState extends State<SaleScreen> {
                     Stack(
                       children: [
                         Opacity(
-                          opacity: 0.5,
+                          opacity: 0.8,
                           child: ClipPath(
                             child: Container(
                               color: MyThemes.primary,

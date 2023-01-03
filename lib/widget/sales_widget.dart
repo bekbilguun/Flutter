@@ -20,72 +20,54 @@ class SalesWidget extends StatelessWidget {
       onLongPress: onLongPress,
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 6),
+        padding: const EdgeInsets.symmetric(vertical: 5),
         child: Card(
-          elevation: 7,
+          elevation: 0,
           child:Column(
             children: [
-              Container(
-                alignment: Alignment.topLeft,
-                padding: const EdgeInsets.only(left: 10, top: 10),
-                child: const Text('Худалтан авалт',
-                    style: TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.w300)),
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Align(
                     child: Container(
-                        padding: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
                         child: Column(
                           children: [
-                            Text(
+                            Padding(padding: const EdgeInsets.only(bottom: 10),
+                            child: Text(
                               sale.customerName,
                               style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.bold),
                               softWrap: true,
-                            ),
+                            ),),
                             Padding(
-                              padding: const EdgeInsets.only(left: 10),
+                              padding: const EdgeInsets.only(),
                               child: Row(
                                 children: <Widget>[
                                   const Text('Огноо: '),
                                   Text(sale.createdAt.toString(),
                                       softWrap: true,
-                                      textAlign: TextAlign.end,
-                                      style:
-                                      const TextStyle(color: MyThemes.primary)),
+                                      textAlign: TextAlign.end),
                                 ],
                               ),
                             )
                           ],
                         )),
                   ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Column(
-                          children: [
-                            Container(
-                                padding: const EdgeInsets.all(10),
-                                child: Row(
-                                  children: <Widget>[
-                                    const Text('Худалтан авалт: '),
-                                    Text(
-                                      sale.total.toString(),
-                                      softWrap: true,
-                                      textAlign: TextAlign.end,
-                                      style:
-                                      const TextStyle(color: MyThemes.primary),
-                                    ),
-                                  ],
-                                )),
-                          ],
-                        )
-                      ]),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Text(
+                      sale.total.toString(),
+                      softWrap: true,
+                      textAlign: TextAlign.end,
+                      style:
+                      const TextStyle(color: MyThemes.primary),
+                    ),
+                  )
+
                 ],
               ),
+              const Divider(thickness: 0.5,)
             ],
           )
         ),

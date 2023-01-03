@@ -19,78 +19,83 @@ class SaleProductsWidget extends StatelessWidget {
       onLongPress: onLongPress,
       onTap: onTap,
       child: Card(
-        elevation: 5,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Text(saleProduct.productName.toString(),
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.bold)),
-            ),
-            Container(
-              alignment: Alignment.centerRight,
-              padding: const EdgeInsets.only(right: 15),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+          elevation: 1,
+          child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.only(),
+                      child: Text(saleProduct.productName.toString(),
+                          style: const TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold)),
+                    ),
+                    Row(
+                      children: <Widget>[
+                        const Align(alignment: Alignment.bottomRight),
+                        const Text(
+                          'тоо ширхэг:  ',
+                          style:
+                              TextStyle(fontSize: 12.0, fontFamily: 'Roboto'),
+                        ),
+                        Text(
+                          saleProduct.count.toString(),
+                          style: const TextStyle(
+                              fontSize: 14.0, fontFamily: 'Roboto',fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
-                    Row(
-                      children: <Widget>[
-                       const Align(alignment: Alignment.topRight),
-                       const Text(
-                          'Нэгж үнэ  ',
-                          style: TextStyle(
-                              fontSize: 12.0,
-                              fontFamily: 'Roboto',),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Column(children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            const Text(
+                              'Нэгж үнэ: ',
+                              style: TextStyle(
+                                  fontSize: 12.0, fontFamily: 'Roboto'),
+                            ),
+                            Text(
+                              saleProduct.price.toString(),
+                              style: const TextStyle(
+                                  fontSize: 14.0, fontFamily: 'Roboto'),
+                            ),
+                          ],
                         ),
-                        Text(
-                          saleProduct.price.toString(),
-                          style:const TextStyle(
-                              fontSize: 14.0,
-                              fontFamily: 'Roboto'),
-                        ),
-                      ],
+                      ]),
                     ),
-                    Row(
-                      children: <Widget>[
-                       const Align(alignment: Alignment.bottomRight),
-                       const Text(
-                          'тоо ширхэг  ',
-                          style: TextStyle(
-                              fontSize: 12.0,
-                              fontFamily: 'Roboto'),
-                        ),
-                        Text(saleProduct.count.toString(),
-                          style:const TextStyle(
-                              fontSize: 14.0,
-                              fontFamily: 'Roboto'),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                       const Align(alignment: Alignment.topRight),
-                       const Text(
-                          'Үнэ  ',
-                          style: TextStyle(
-                              fontSize: 12.0,
-                              fontFamily: 'Roboto'),
-                        ),
-                        Text(
-                          saleProduct.total.toString(),
-                          style:const TextStyle(
-                              fontSize: 14.0,
-                              fontFamily: 'Roboto'),
-                        ),
-                      ],
-                    ),
-                  ]),
-            ),
-          ],
-        ),
-      ),
+                    Padding(
+                        padding: EdgeInsets.all(5),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: <Widget>[
+                              Row(
+                                children: <Widget>[
+                                  const Align(alignment: Alignment.topRight),
+                                  const Text(
+                                    'Үнэ  ',
+                                    style: TextStyle(
+                                        fontSize: 12.0, fontFamily: 'Roboto'),
+                                  ),
+                                  Text(
+                                    saleProduct.total.toString(),
+                                    style: const TextStyle(
+                                        fontSize: 14.0, fontFamily: 'Roboto',fontWeight: FontWeight.bold),
+                                  ),
+                                ],
+                              ),
+                            ])),
+                  ],
+                ),
+              ]))),
     );
   }
 }

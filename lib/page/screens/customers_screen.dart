@@ -41,7 +41,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                   Stack(
                     children: [
                       Opacity(
-                        opacity: 0.5,
+                        opacity: 0.8,
                         child: ClipPath(
                           // clipper: WaveClipper(),
                           child: Container(
@@ -51,7 +51,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(),
+                        padding: const EdgeInsets.symmetric(horizontal: 20 , vertical: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const <Widget>[
@@ -75,7 +75,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                   ),
                   Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(0),
+                        padding: const EdgeInsets.all(0.0),
                       child: FutureBuilder<List<Customers>?>(
                       future: DatabaseHelper.getAllCustomers(),
                       builder:
@@ -89,6 +89,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                           if (snapshot.data != null) {
                             print(snapshot.data);
                             return ListView.builder(
+                              scrollDirection: Axis.vertical,
                               itemBuilder: (context, index) => CustomerWidget(
                                 customer: snapshot.data![index],
                                 onTap: () async {
@@ -152,7 +153,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
   }
 }
 
-// class WaveClipper extends CustomClipper<Path> {
+// abstract class WaveClipper extends CustomClipper<Path> {
 //   @override
 //   Path getClip(Size size) {
 //   debugPrint(size.width.toString());
