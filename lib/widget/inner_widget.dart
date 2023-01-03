@@ -17,13 +17,11 @@ class InnerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onLongPress: onLongPress,
-      onTap: onTap,
-      child:Padding(
-        padding: const EdgeInsets.only(top: 5),
-        child: Card(
-            elevation: 0,
-            child:Column(
+        onLongPress: onLongPress,
+        onTap: onTap,
+        child: Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -47,31 +45,29 @@ class InnerWidget extends StatelessWidget {
                                 const Text(
                                   'Үнэ  ',
                                   style: TextStyle(
-                                      fontSize: 12.0,
-                                      fontFamily: 'Roboto'),
+                                      fontSize: 12.0, fontFamily: 'Roboto'),
                                 ),
                                 Text(
                                   inner.price,
-                                  style:const TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 14.0,
-                                      fontFamily: 'Roboto',color: MyThemes.primary),
+                                      fontFamily: 'Roboto',
+                                      color: MyThemes.primary),
                                 ),
                               ],
                             ),
                             Row(
-                              children:const <Widget>[
+                              children: const <Widget>[
                                 Align(alignment: Alignment.bottomRight),
                                 Text(
                                   'тоо ширхэг  ',
                                   style: TextStyle(
-                                      fontSize: 12.0,
-                                      fontFamily: 'Roboto'),
+                                      fontSize: 12.0, fontFamily: 'Roboto'),
                                 ),
                                 Text(
                                   '50',
                                   style: TextStyle(
-                                      fontSize: 14.0,
-                                      fontFamily: 'Roboto'),
+                                      fontSize: 14.0, fontFamily: 'Roboto'),
                                 ),
                               ],
                             ),
@@ -79,12 +75,10 @@ class InnerWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                const Divider(thickness: 0.5,)
+                const Divider(
+                  thickness: 0.5,
+                )
               ],
-            )
-
-        ),
-      )
-    );
+            )));
   }
 }

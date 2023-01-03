@@ -176,46 +176,49 @@ class _PriceScreenState extends State<PriceScreen> {
                   ),
                 ),
                 const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20.0),
-                  child: SizedBox(
-                      height: 45,
-                      width: MediaQuery.of(context).size.width,
-                      child: ButtonWidget(
-                        text: widget.prices == null ? 'Нэмэх' : 'Хадгалах',
-                        onClicked: () async {
-                          final price = priceController.value.text;
-                          if (price.isEmpty) {
-                            return;
-                          }
-                          if (widget.prices == null) {
-                            final Prices model = Prices(
-                                customerId: widget.customer!.id.toString(),
-                                productId: productId.toString(),
-                                id: widget.prices?.id,
-                                price: price);
-                            final result = await DatabaseHelper.addPrice(model);
-                            if (result == 0) {
-                              ScaffoldMessenger.of(context)
-                                ..removeCurrentSnackBar()
-                                ..showSnackBar(const SnackBar(
-                                    content: Text('Price бүртгэлтэй байна')));
+                Expanded(child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child: SizedBox(
+                        height: 45,
+                        width: MediaQuery.of(context).size.width,
+                        child: ButtonWidget(
+                          text: widget.prices == null ? 'Нэмэх' : 'Хадгалах',
+                          onClicked: () async {
+                            final price = priceController.value.text;
+                            if (price.isEmpty) {
+                              return;
+                            }
+                            if (widget.prices == null) {
+                              final Prices model = Prices(
+                                  customerId: widget.customer!.id.toString(),
+                                  productId: productId.toString(),
+                                  id: widget.prices?.id,
+                                  price: price);
+                              final result = await DatabaseHelper.addPrice(model);
+                              if (result == 0) {
+                                ScaffoldMessenger.of(context)
+                                  ..removeCurrentSnackBar()
+                                  ..showSnackBar(const SnackBar(
+                                      content: Text('Price бүртгэлтэй байна')));
+                              } else {
+                                Navigator.pop(context);
+                              }
                             } else {
+                              final Prices updateModel = Prices(
+                                  customerId: widget.prices!.customerId,
+                                  productId: widget.prices!.productId,
+                                  id: widget.prices?.id,
+                                  price: price);
+                              await DatabaseHelper.updatePrice(updateModel);
                               Navigator.pop(context);
                             }
-                          } else {
-                            final Prices updateModel = Prices(
-                                customerId: widget.prices!.customerId,
-                                productId: widget.prices!.productId,
-                                id: widget.prices?.id,
-                                price: price);
-                            await DatabaseHelper.updatePrice(updateModel);
-                            Navigator.pop(context);
-                          }
-                          setState(() {});
-                        },
-                      )),
-                )
+                            setState(() {});
+                          },
+                        )),
+                  ),
+                ))
               ],
             ),
           ),

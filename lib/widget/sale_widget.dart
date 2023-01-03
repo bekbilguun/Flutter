@@ -44,31 +44,19 @@ class _SaleWidgetState extends State<SaleWidget> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-        child: Card(
-          elevation: 0,
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  alignment: Alignment.topLeft,
-                  padding: const EdgeInsets.symmetric(),
-                  child: Text(widget.inner.productId,
-                      style: const TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold)),
-                ),
-
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                  alignment: Alignment.center,
+                  alignment: Alignment.centerLeft,
                   child: Column(children: <Widget>[
+                    Text(widget.inner.productId,
+                        style: const TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold)),
                     Row(
                       children: <Widget>[
                         const Text(
@@ -132,6 +120,6 @@ class _SaleWidgetState extends State<SaleWidget> {
           ],
         ),
       ),
-    ));
+    );
   }
 }

@@ -21,17 +21,8 @@ class CustomerWidget extends StatelessWidget {
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.only(top: 10),
-        child: Card(
-          elevation: 0,
           child:Column(
             children: [
-              Container(
-                alignment: Alignment.topLeft,
-                padding: const EdgeInsets.all(10),
-                child: const Text('Хэрэглэгч',
-                    style: TextStyle(
-                        fontSize: 12, fontWeight: FontWeight.w300)),
-              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -61,7 +52,6 @@ class CustomerWidget extends StatelessWidget {
               const Divider(thickness: 0.5,)
             ],
           )
-        ),
       ),
     );
   }
