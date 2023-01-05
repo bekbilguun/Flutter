@@ -7,6 +7,7 @@ import 'package:profile/page/sale/sales_screen.dart';
 import 'package:profile/widget/customers_widget.dart';
 
 import '../../themes.dart';
+import '../../widget/AuthClipper_widget.dart';
 
 class SaleScreen extends StatefulWidget {
   const SaleScreen({Key? key}) : super(key: key);
@@ -47,6 +48,7 @@ class _SaleScreenState extends State<SaleScreen> {
                         Opacity(
                           opacity: 0.8,
                           child: ClipPath(
+                            clipper: AuthClipper(),
                             child: Container(
                               color: MyThemes.primary,
                               height: 200,
@@ -55,7 +57,7 @@ class _SaleScreenState extends State<SaleScreen> {
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 20),
+                              horizontal: 20, vertical: 50),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[

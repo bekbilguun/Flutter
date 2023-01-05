@@ -10,6 +10,7 @@ import 'package:profile/widget/appbar_widget.dart';
 import 'package:profile/widget/sale_widget.dart';
 
 import '../../themes.dart';
+import '../../widget/AuthClipper_widget.dart';
 import '../../widget/button_widget.dart';
 
 class SaleProductScreen extends StatefulWidget {
@@ -49,6 +50,7 @@ class _SaleProductScreenState extends State<SaleProductScreen> {
                     Opacity(
                       opacity: 0.8,
                       child: ClipPath(
+                        clipper: AuthClipper(),
                         child: Container(
                           color: MyThemes.primary,
                           height: 200,
@@ -86,20 +88,18 @@ class _SaleProductScreenState extends State<SaleProductScreen> {
                           padding:
                           const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                           child: Row(
-                            children: [
-                              Row(
-                                children: <Widget>[
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+
                                   const Text(
-                                    'Худалдан авагч: ',
-                                    style: TextStyle(fontSize: 18),
+                                    'Hi ',
+                                    style: TextStyle(fontSize: 20),
                                   ),
                                   Text(
                                     widget.customer!.name,
                                     style: const TextStyle(
-                                        fontSize: 18),
+                                        fontSize: 20),
                                   ),
-                                ],
-                              ),
                             ],
                           ),
                         ),
@@ -203,60 +203,67 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
           ),
         )),
 
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Text(
-                'Нийт үнэ:',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        Card(
+          color: Colors.orange.shade300,
+          // elevation: 5,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    child: Text(
+                      'Нийт үнэ:',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    child: Text(
+                      '$_total',
+                      style:
+                      const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-              child: Text(
-                '$_total',
-                style:
-                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-          ],
-        ),
-        Padding(padding: EdgeInsets.only(bottom: 20),
-        child: ButtonWidget(
-          text: 'Дуусгах',
-          onClicked: () async {
-            final Sale saleModel = Sale(
-              id: widget.sale?.id,
-              customerId: widget.customer!.id,
-              customerName: widget.customer!.name,
-              total: _total,
-              // createdAt: "2020-10-12 13:35:06
-            );
-            final saleId = await DatabaseHelper.addSale(saleModel);
-            for (var element in widget.products) {
-              final SaleProduct saleproductModel = SaleProduct(
-                id: widget.sale?.id,
-                saleId: saleId,
-                customerId: widget.customer!.id,
-                productId: widget.customer!.id,
-                productName: element.productId,
-                total: element.total,
-                price: double.parse(element.price),
-                count: element.count,);
-              if (element.count > 0) {
-                await DatabaseHelper.addSaleProduct(saleproductModel);
-              }
-            }
+              Padding(padding: EdgeInsets.only(bottom: 20),
+                child: ButtonWidget(
+                  text: 'Дуусгах',
+                  onClicked: () async {
+                    final Sale saleModel = Sale(
+                      id: widget.sale?.id,
+                      customerId: widget.customer!.id,
+                      customerName: widget.customer!.name,
+                      total: _total,
+                      // createdAt: "2020-10-12 13:35:06"
+                    );
+                    final saleId = await DatabaseHelper.addSale(saleModel);
+                    for (var element in widget.products) {
+                      final SaleProduct saleproductModel = SaleProduct(
+                        id: widget.sale?.id,
+                        saleId: saleId,
+                        customerId: widget.customer!.id,
+                        productId: widget.customer!.id,
+                        productName: element.productId,
+                        total: element.total,
+                        price: double.parse(element.price),
+                        count: element.count,);
+                      if (element.count > 0) {
+                        await DatabaseHelper.addSaleProduct(saleproductModel);
+                      }
+                    }
 
-            await Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SalesScreen()));
-            setState(() {});
-          },
+                    await Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SalesScreen()));
+                    setState(() {});
+                  },
+                )
+                ,)
+            ],
+          ),
         )
-          ,)
-
       ],
     );
   }

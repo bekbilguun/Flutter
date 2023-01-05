@@ -7,6 +7,7 @@ import 'package:profile/page/price/product_picker_screen.dart';
 import 'package:profile/widget/button_widget.dart';
 
 import '../../themes.dart';
+import '../../widget/AuthClipper_widget.dart';
 
 class PriceScreen extends StatefulWidget {
   final Prices? prices;
@@ -39,7 +40,7 @@ class _PriceScreenState extends State<PriceScreen> {
         builder: (context) => Scaffold(
           appBar: AppBar(),
           body: Padding(
-            padding: const EdgeInsets.symmetric(),
+            padding: const EdgeInsets.all(0),
             child: Column(
               children: [
                 Stack(
@@ -47,7 +48,7 @@ class _PriceScreenState extends State<PriceScreen> {
                     Opacity(
                       opacity: 0.8,
                       child: ClipPath(
-                        // clipper: WaveClipper(),
+                        clipper: AuthClipper(),
                         child: Container(
                           color: MyThemes.primary,
                           height: 200,
@@ -57,18 +58,28 @@ class _PriceScreenState extends State<PriceScreen> {
                     Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                          padding: const EdgeInsets.all(15),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Icon(widget.prices == null ? Icons.add : Icons.edit, color: MyThemes.iconColor,),
-                              const SizedBox(width: 10,),
-                              Text(widget.prices == null ? 'Худалдах үнэ' : 'Худалдах үнэ засах',style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                              Icon(
+                                widget.prices == null ? Icons.add : Icons.edit,
+                                color: MyThemes.iconColor,
+                              ),
+                              const SizedBox(width: 10),
+                              Text(
+                                widget.prices == null
+                                    ? 'Худалдах үнэ'
+                                    : 'Худалдах үнэ засах',
+                                style: const TextStyle(
+                                    fontSize: 22, fontWeight: FontWeight.bold),
+                              ),
                             ],
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 18,horizontal: 18),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 5),
                           child: Row(
                             children: <Widget>[
                               Align(
@@ -76,16 +87,17 @@ class _PriceScreenState extends State<PriceScreen> {
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(),
                                   child: const Text(
-                                    'Нэр:',
+                                    'Нэр: ',
                                     style: TextStyle(
-                                        fontSize: 18, fontWeight: FontWeight.bold),
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ),
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                                  padding: const EdgeInsets.only(),
                                   child: Text(
                                     widget.customer!.name,
                                     style: const TextStyle(fontSize: 18),
@@ -96,22 +108,63 @@ class _PriceScreenState extends State<PriceScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(top: 10, left: 20),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 5),
                           child: Row(
                             children: <Widget>[
+                              widget.prices != null
+                                  ? Align(
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(),
+                                        child: const Text(
+                                          'Бүтээгдэхүүн:',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                    )
+                                  : TextButton(
+                                      style: ElevatedButton.styleFrom(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 0, vertical: 5),
+                                        // backgroundColor: Colors.blue,
+                                        // shape: const StadiumBorder(),
+                                      ),
+                                      onPressed: widget.prices != null
+                                          ? () {}
+                                          : () async {
+                                              final result =
+                                                  await Navigator.push(
+                                                context,
+                                                // Create the SelectionScreen in the next step.
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ProductPickerScreen(
+                                                            customer: widget
+                                                                .customer)),
+                                              );
+                                              _setProductId(result);
+                                            },
+                                      child: Row(
+                                        children: const <Widget>[
+                                          Text(
+                                            'Бүтээгдэхүүн',
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Icon(
+                                            Icons.arrow_drop_down,
+                                            color: Colors.black,
+                                          )
+                                        ],
+                                      )),
                               Align(
                                 child: Container(
-                                  padding: const EdgeInsets.symmetric(),
-                                  child: const Text(
-                                    'Бүтээгдэхүүн:',
-                                    style: TextStyle(
-                                        fontSize: 18, fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                              Align(
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                  padding:
+                                      const EdgeInsets.symmetric(horizontal: 5),
                                   child: Text(
                                     widget.prices != null
                                         ? widget.prices!.productId
@@ -128,34 +181,35 @@ class _PriceScreenState extends State<PriceScreen> {
                   ],
                 ),
 
-                widget.prices == null
-                    ? Padding(
-                        padding:
-                            const EdgeInsets.only(right: 40, left: 40, top: 20),
-                        child: SizedBox(
-                            height: 50,
-                            width: MediaQuery.of(context).size.width,
-                            child: ButtonWidget(
-                              text: 'Бүтээгдэхүүнээ сонгоно уу',
-                              onClicked: widget.prices != null
-                                  ? () {}
-                                  : () async {
-                                      final result = await Navigator.push(
-                                        context,
-                                        // Create the SelectionScreen in the next step.
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProductPickerScreen(
-                                                    customer: widget.customer)),
-                                      );
-                                      _setProductId(result);
-                                    },
-                            )
-                            ),
-                      )
-                    : const Padding(padding: EdgeInsets.only()),
+                // widget.prices == null
+                //     ? Padding(
+                //         padding:
+                //             const EdgeInsets.only(right: 40, left: 40, top: 20),
+                //         child: SizedBox(
+                //             height: 50,
+                //             width: MediaQuery.of(context).size.width,
+                //             child: ButtonWidget(
+                //               text: 'Бүтээгдэхүүнээ сонгоно уу',
+                //               onClicked: widget.prices != null
+                //                   ? () {}
+                //                   : () async {
+                //                       final result = await Navigator.push(
+                //                         context,
+                //                         // Create the SelectionScreen in the next step.
+                //                         MaterialPageRoute(
+                //                             builder: (context) =>
+                //                                 ProductPickerScreen(
+                //                                     customer: widget.customer)),
+                //                       );
+                //                       _setProductId(result);
+                //                     },
+                //             )
+                //             ),
+                //       )
+                //     : const Padding(padding: EdgeInsets.only()),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   child: TextFormField(
                     controller: priceController,
                     decoration: const InputDecoration(
@@ -176,7 +230,8 @@ class _PriceScreenState extends State<PriceScreen> {
                   ),
                 ),
                 const Spacer(),
-                Expanded(child: Align(
+                Expanded(
+                    child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 20.0),
@@ -190,13 +245,14 @@ class _PriceScreenState extends State<PriceScreen> {
                             if (price.isEmpty) {
                               return;
                             }
-                            if (widget.prices == null) {
+                            if (widget.prices == null && productId.isNotEmpty) {
                               final Prices model = Prices(
                                   customerId: widget.customer!.id.toString(),
                                   productId: productId.toString(),
                                   id: widget.prices?.id,
                                   price: price);
-                              final result = await DatabaseHelper.addPrice(model);
+                              final result =
+                                  await DatabaseHelper.addPrice(model);
                               if (result == 0) {
                                 ScaffoldMessenger.of(context)
                                   ..removeCurrentSnackBar()

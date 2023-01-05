@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:profile/model/sale_model.dart';
 import 'package:profile/themes.dart';
 
@@ -22,55 +23,52 @@ class SalesWidget extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 5),
         child: Card(
-          elevation: 0,
-          child:Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Align(
-                    child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 15),
+            elevation: 0,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Container(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 15, horizontal: 10),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(padding: const EdgeInsets.only(bottom: 10),
-                            child: Text(
-                              sale.customerName,
-                              style: const TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold),
-                              softWrap: true,
-                            ),),
-                            Padding(
-                              padding: const EdgeInsets.only(),
-                              child: Row(
-                                children: <Widget>[
-                                  const Text('Огноо: '),
-                                  Text(sale.createdAt.toString(),
-                                      softWrap: true,
-                                      textAlign: TextAlign.end),
-                                ],
-                              ),
-                            )
+                            Align(
+                              child: Text(sale.customerName,
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                  softWrap: true,
+                                  textAlign: TextAlign.left),
+                            ),
+                            Align(
+                              child: Text(
+                                  DateFormat.yMMMd().format(DateTime.parse(
+                                      sale.createdAt.toString())),
+                                  softWrap: true,
+                                  textAlign: TextAlign.left),
+                            ),
                           ],
                         )),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Text(
-                      sale.total.toString(),
-                      softWrap: true,
-                      textAlign: TextAlign.end,
-                      style:
-                      const TextStyle(color: MyThemes.primary),
-                    ),
-                  )
-
-                ],
-              ),
-              const Divider(thickness: 0.5,)
-            ],
-          )
-        ),
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(
+                        sale.total.toString(),
+                        softWrap: true,
+                        textAlign: TextAlign.end,
+                        style: const TextStyle(color: MyThemes.primary),
+                      ),
+                    )
+                  ],
+                ),
+                const Divider(
+                  thickness: 0.5,
+                )
+              ],
+            )),
       ),
     );
   }

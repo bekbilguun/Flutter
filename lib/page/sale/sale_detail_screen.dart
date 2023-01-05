@@ -6,6 +6,7 @@ import 'package:profile/model/sale_product_model.dart';
 import 'package:profile/widget/sale_products_widget.dart';
 
 import '../../themes.dart';
+import '../../widget/AuthClipper_widget.dart';
 
 
 class SaleDetailScreen extends StatefulWidget {
@@ -38,69 +39,69 @@ class _SaleDetailScreenState extends State<SaleDetailScreen> {
                     Opacity(
                       opacity: 0.8,
                       child: ClipPath(
-                        // clipper: WaveClipper(),
+                        clipper: AuthClipper(),
                         child: Container(
                           color: MyThemes.primary,
                           height: 200,
-                          child:Column(
-                            children: [
-                              Padding(
-                                padding:const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      children: <Widget>[
-                                        Icon(Icons.contact_mail_sharp, color: MyThemes.iconColor),
-                                        const SizedBox(width: 10),
-                                        Text(widget.sale!.customerName,style:const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),)
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                                child: Row(
-                                  children: [
-                                    Row(
-                                      children: <Widget>[
-                                        Icon(Icons.monetization_on,color: MyThemes.iconColor),
-                                        const SizedBox(width: 5),
-                                        const Text('Нийт үнэ: ',
-                                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(widget.sale!.total.toString(),
-                                          style:const TextStyle(fontSize: 18),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding:const EdgeInsets.only(left: 20),
-                                child: Row(
-                                  children: [
-                                    Row(
-                                      children: <Widget>[
-                                        Icon(Icons.date_range_outlined,color: MyThemes.iconColor),
-                                        const SizedBox(width: 5),
-                                        const  Text('Огноо: ',
-                                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(widget.sale!.createdAt.toString(),
-                                          style:const TextStyle(fontSize: 18),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          )
                         ),
                       ),
+                    ),
+                    Column(
+                      children: [
+                        Padding(
+                          padding:const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Row(
+                                children: <Widget>[
+                                  Icon(Icons.contact_mail_sharp, color: MyThemes.iconColor),
+                                  const SizedBox(width: 10),
+                                  Text(widget.sale!.customerName,style:const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),)
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding:const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
+                          child: Row(
+                            children: [
+                              Row(
+                                children: <Widget>[
+                                  Icon(Icons.monetization_on,color: MyThemes.iconColor),
+                                  const SizedBox(width: 5),
+                                  const Text('Нийт үнэ: ',
+                                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(widget.sale!.total.toString(),
+                                    style:const TextStyle(fontSize: 18),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding:const EdgeInsets.only(left: 20),
+                          child: Row(
+                            children: [
+                              Row(
+                                children: <Widget>[
+                                  Icon(Icons.date_range_outlined,color: MyThemes.iconColor),
+                                  const SizedBox(width: 5),
+                                  const  Text('Огноо: ',
+                                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(widget.sale!.createdAt.toString(),
+                                    style:const TextStyle(fontSize: 18),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     )
                   ],
                 ),

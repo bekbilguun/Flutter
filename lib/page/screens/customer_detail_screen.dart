@@ -9,6 +9,7 @@ import 'package:profile/widget/inner_widget.dart';
 
 import '../../model/price_model.dart';
 import '../../themes.dart';
+import '../../widget/AuthClipper_widget.dart';
 import '../../widget/appbar_widget.dart';
 
 
@@ -74,7 +75,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                     Opacity(
                       opacity: 0.8,
                       child: ClipPath(
-                        // clipper: WaveClipper(),
+                        clipper: AuthClipper(),
                         child: Container(
                           color: MyThemes.primary,
                           height: 200,
@@ -84,7 +85,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                     Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(20),
+                          padding: const EdgeInsets.all(15),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children:<Widget>[
@@ -95,7 +96,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                           ),
                         ),
                         Padding(
-                          padding:const EdgeInsets.all(20),
+                          padding:const EdgeInsets.symmetric(horizontal: 20 ,vertical: 5),
                           child: Row(
                             children: <Widget>[
                               const Text('Нэр: ',
@@ -108,9 +109,8 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                           ),
                         ),
                         Padding(
-                          padding:const EdgeInsets.only(left: 20),
+                          padding:const EdgeInsets.symmetric(horizontal: 20 ,vertical: 5),
                           child: Row(
-
                             children: <Widget>[
                               const Text('Утас: ',
                                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),

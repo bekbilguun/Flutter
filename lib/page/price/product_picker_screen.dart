@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:profile/model/customer_model.dart';
 import 'package:profile/model/product_model.dart';
 import 'package:profile/db/notes_database.dart';
+import 'package:profile/widget/AuthClipper_widget.dart';
 import 'package:profile/widget/product_widget.dart';
 import 'dart:async';
 
@@ -64,7 +65,7 @@ class ProductPickerScreenState extends State<ProductPickerScreen> {
                         Opacity(
                           opacity: 0.8,
                           child: ClipPath(
-                            // clipper: WaveClipper(),
+                            clipper: AuthClipper(),
                             child: Container(
                               color: MyThemes.primary,
                               height: 200,
@@ -78,10 +79,11 @@ class ProductPickerScreenState extends State<ProductPickerScreen> {
                               child:Column(
                                 children: [
                                   Row(
-                                    children:const <Widget>[
-                                      Icon(Icons.person_outline, color: MyThemes.primary,),
-                                      SizedBox(width: 10,),
-                                      Text('Product picker',style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children:<Widget>[
+                                      Icon(Icons.person_outline, color: MyThemes.iconColor,),
+                                      const SizedBox(width: 10,),
+                                      const Text('Product picker',style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
                                     ],
                                   ),
                                   Padding(

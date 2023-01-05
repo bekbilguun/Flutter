@@ -5,7 +5,7 @@ import 'package:profile/db/notes_database.dart';
 import 'package:profile/page/screens/customer_detail_screen.dart';
 import 'package:profile/widget/customers_widget.dart';
 import '../../themes.dart';
-import '../../widget/appbar_widget.dart';
+import '../../widget/AuthClipper_widget.dart';
 import 'customer_screen.dart';
 
 class CustomersScreen extends StatefulWidget {
@@ -43,7 +43,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                       Opacity(
                         opacity: 0.8,
                         child: ClipPath(
-                          // clipper: WaveClipper(),
+                          clipper: AuthClipper(),
                           child: Container(
                             color: MyThemes.primary,
                             height: 200,
@@ -51,7 +51,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20 , vertical: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 20 , vertical: 50),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const <Widget>[
@@ -152,21 +152,3 @@ class _CustomersScreenState extends State<CustomersScreen> {
     );
   }
 }
-
-// abstract class WaveClipper extends CustomClipper<Path> {
-//   @override
-//   Path getClip(Size size) {
-//   debugPrint(size.width.toString());
-//   var path = new Path();
-//   path.lineTo(0, size.height);
-//   var firstStart = Offset(size.width / 5, size.height);
-//   var firstEnd = Offset(size.width / 2.25, size.height - 50.0);
-//   path.quadraticBezierTo(firstStart.dx, firstStart.dy, firstEnd.dx, firstEnd.dy);
-//   var secondStart = Offset(size.width - (size.width / 3.24), size.height - 105);
-//   var secondEnd = Offset(size.width,size.height -10);
-//   path.quadraticBezierTo(secondStart.dx, secondStart.dy, secondEnd.dx, secondEnd.dy);
-//   path.lineTo(size.width, 0);
-//   path.close();
-//   return path;
-//   }
-// }

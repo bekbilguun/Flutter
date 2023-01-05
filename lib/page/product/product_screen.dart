@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:profile/db/notes_database.dart';
 import 'package:profile/model/product_model.dart';
 import 'package:profile/themes.dart';
-import 'package:profile/widget/appbar_widget.dart';
 
+import '../../widget/AuthClipper_widget.dart';
 import '../../widget/button_widget.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -27,7 +27,7 @@ class ProductScreen extends StatelessWidget {
         builder: (context) => Scaffold(
           appBar: AppBar(),
           body: Padding(
-            padding: const EdgeInsets.all(0),
+            padding: const EdgeInsets.symmetric(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -36,6 +36,7 @@ class ProductScreen extends StatelessWidget {
                     Opacity(
                       opacity: 0.8,
                       child: ClipPath(
+                        clipper: AuthClipper(),
                         child: Container(
                           color: MyThemes.primary,
                           height: 200,
@@ -107,33 +108,36 @@ class ProductScreen extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                Padding(
-                  padding:
-                      const EdgeInsets.only(left: 30, right: 30, bottom: 30),
-                  child: SizedBox(
-                      height: 45,
-                      width: MediaQuery.of(context).size.width,
-                      child: ButtonWidget(
-                        text: products == null ? 'Нэмэх' : 'Хадгалах',
-                        onClicked: () async {
-                          final name = nameController.value.text;
-                          final barcode = barcodeController.value.text;
+                Expanded(child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding:
+                    const EdgeInsets.only(left: 30, right: 30, bottom: 30),
+                    child: SizedBox(
+                        height: 45,
+                        width: MediaQuery.of(context).size.width,
+                        child: ButtonWidget(
+                          text: products == null ? 'Нэмэх' : 'Хадгалах',
+                          onClicked: () async {
+                            final name = nameController.value.text;
+                            final barcode = barcodeController.value.text;
 
-                          if (name.isEmpty || barcode.isEmpty) {
-                            return;
-                          }
+                            if (name.isEmpty || barcode.isEmpty) {
+                              return;
+                            }
 
-                          final Products model = Products(
-                              name: name, barcode: barcode, id: products?.id);
-                          if (products == null) {
-                            await DatabaseHelper.addProduct(model);
-                          } else {
-                            await DatabaseHelper.updateProduct(model);
-                          }
-                          Navigator.pop(context);
-                        },
-                      )),
-                )
+                            final Products model = Products(
+                                name: name, barcode: barcode, id: products?.id);
+                            if (products == null) {
+                              await DatabaseHelper.addProduct(model);
+                            } else {
+                              await DatabaseHelper.updateProduct(model);
+                            }
+                            Navigator.pop(context);
+                          },
+                        )),
+                  ),
+                ))
               ],
             ),
           ),

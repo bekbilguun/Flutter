@@ -2,9 +2,9 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:profile/model/product_model.dart';
 import 'package:profile/db/notes_database.dart';
-import 'package:profile/widget/appbar_widget.dart';
 import 'package:profile/widget/product_widget.dart';
 import '../../themes.dart';
+import '../../widget/AuthClipper_widget.dart';
 import 'product_screen.dart';
 
 class ProductsScreen extends StatefulWidget {
@@ -42,6 +42,7 @@ class ProductsScreenState extends State<ProductsScreen> {
                       Opacity(
                         opacity: 0.8,
                         child: ClipPath(
+                          clipper: AuthClipper(),
                           child: Container(
                             color: MyThemes.primary,
                             height: 200,
@@ -50,7 +51,7 @@ class ProductsScreenState extends State<ProductsScreen> {
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 20),
+                            horizontal: 20, vertical: 50),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
