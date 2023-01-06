@@ -147,6 +147,8 @@ class _PriceScreenState extends State<PriceScreen> {
                                                 _setProductId(result);
                                               },
                                         child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           children: <Widget>[
                                             Expanded(
                                               child: Text(
@@ -168,18 +170,22 @@ class _PriceScreenState extends State<PriceScreen> {
                                         ),
                                       ),
                                     ))
-                                  :Expanded(child: Align(
-                                  child:Expanded(child: Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 10),
-                                    child: Text(
-                                      widget.prices != null
-                                          ? widget.prices!.productId
-                                          : productId,
-                                      style: const TextStyle(fontSize: 18),
-                                    ),
-                                  ),)
-                              ),)
+                                  : Expanded(
+                                      child: Align(
+                                          child: Expanded(
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 10, vertical: 10),
+                                          child: Text(
+                                            widget.prices != null
+                                                ? widget.prices!.productId
+                                                : productId,
+                                            style:
+                                                const TextStyle(fontSize: 18),
+                                          ),
+                                        ),
+                                      )),
+                                    )
                             ],
                           ),
                         ),
