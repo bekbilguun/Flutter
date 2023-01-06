@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:profile/model/inner_model.dart';
 import 'package:profile/themes.dart';
 
@@ -51,29 +52,35 @@ class _SaleWidgetState extends State<SaleWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Column(children: <Widget>[
-                    Text(widget.inner.productId,
-                        style: const TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold)),
-                    Row(
-                      children: <Widget>[
-                        const Text(
-                          'Нэгж үнэ: ',
-                          style:
-                              TextStyle(fontSize: 12.0, fontFamily: 'Roboto'),
-                        ),
-                        Text(
-                          widget.inner.price,
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                      Text(widget.inner.productId,
                           style: const TextStyle(
-                              fontSize: 14.0,
-                              fontFamily: 'Roboto',
-                              color: MyThemes.primary),
-                        ),
-                      ],
-                    ),
-                  ]),
+                              fontSize: 22, fontWeight: FontWeight.bold)),
+                      Row(
+                        children: <Widget>[
+                          const Text(
+                            'Нэгж үнэ: ',
+                            style:
+                                TextStyle(fontSize: 12.0, fontFamily: 'Roboto'),
+                          ),
+                          Text(
+                            NumberFormat.simpleCurrency(name: "₮")
+                                .format(int.parse(widget.inner.price))
+                                .toString(),
+                            style: const TextStyle(
+                                fontSize: 14.0,
+                                fontFamily: 'Roboto',
+                                color: MyThemes.primary),
+                          ),
+                        ],
+                      ),
+                    ]),
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(5),
@@ -91,7 +98,9 @@ class _SaleWidgetState extends State<SaleWidget> {
                                   style: TextStyle(fontSize: 21),
                                 )),
                           ),
-                          const SizedBox(width: 10,),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(left: 10, right: 10),
                             child: Text(
@@ -100,7 +109,9 @@ class _SaleWidgetState extends State<SaleWidget> {
                                   fontSize: 16.0, fontWeight: FontWeight.bold),
                             ),
                           ),
-                          const SizedBox(width: 10,),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           SizedBox(
                             width: 50,
                             height: 50,
@@ -116,7 +127,9 @@ class _SaleWidgetState extends State<SaleWidget> {
                 ),
               ],
             ),
-            const Divider(thickness: 0.5,)
+            const Divider(
+              thickness: 0.5,
+            )
           ],
         ),
       ),

@@ -109,7 +109,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                           ),
                         ),
                         Padding(
-                          padding:const EdgeInsets.symmetric(horizontal: 20 ,vertical: 5),
+                          padding:const EdgeInsets.symmetric(horizontal: 20 ,vertical: 10),
                           child: Row(
                             children: <Widget>[
                               const Text('Утас: ',

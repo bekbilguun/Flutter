@@ -1,5 +1,6 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:profile/db/notes_database.dart';
 import 'package:profile/model/sale_model.dart';
 import 'package:profile/model/sale_product_model.dart';
@@ -74,7 +75,7 @@ class _SaleDetailScreenState extends State<SaleDetailScreen> {
                                   const Text('Нийт үнэ: ',
                                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                                   ),
-                                  Text(widget.sale!.total.toString(),
+                                  Text(NumberFormat.simpleCurrency(name: "₮").format(widget.sale!.total).toString(),
                                     style:const TextStyle(fontSize: 18),
                                   ),
                                 ],
@@ -93,7 +94,8 @@ class _SaleDetailScreenState extends State<SaleDetailScreen> {
                                   const  Text('Огноо: ',
                                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                                   ),
-                                  Text(widget.sale!.createdAt.toString(),
+                                  Text(DateFormat.yMMMd().format(DateTime.parse(
+                                      widget.sale!.createdAt.toString())),
                                     style:const TextStyle(fontSize: 18),
                                   ),
                                 ],

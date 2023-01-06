@@ -20,27 +20,28 @@ class CustomerWidget extends StatelessWidget {
       onLongPress: onLongPress,
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.only(top: 10),
-          child:Column(
+          padding: const EdgeInsets.only(top: 10),
+          child: Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Align(
-                    child: Container(
-                      padding:
-                      const EdgeInsets.all(10),
-                      child: Text(
-                        customer.name,
-                        style: const TextStyle(fontSize: 20),
-                        softWrap: true,
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          customer.name,
+                          style: const TextStyle(fontSize: 20),
+                          softWrap: true,
+                        ),
                       ),
                     ),
                   ),
                   Align(
                     child: Container(
-                      padding:
-                      const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Icon(
                         Icons.arrow_forward,
                         color: MyThemes.iconColor,
@@ -49,10 +50,11 @@ class CustomerWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              const Divider(thickness: 0.5,)
+              const Divider(
+                thickness: 0.5,
+              )
             ],
-          )
-      ),
+          )),
     );
   }
 }

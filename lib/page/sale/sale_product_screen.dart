@@ -1,5 +1,6 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:profile/model/customer_model.dart';
 import 'package:profile/db/notes_database.dart';
 import 'package:profile/model/inner_model.dart';
@@ -221,7 +222,7 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     child: Text(
-                      '$_total',
+                      NumberFormat.simpleCurrency(name: "₮").format(_total).toString(),
                       style:
                       const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),

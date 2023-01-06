@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:profile/model/inner_model.dart';
 import 'package:profile/themes.dart';
 
@@ -26,12 +27,14 @@ class InnerWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.all(25),
-                      child: Text(inner.productId,
-                          style: const TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold)),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.all(25),
+                        child: Text(inner.productId,
+                            style: const TextStyle(
+                                fontSize: 18, fontWeight: FontWeight.bold)),
+                      ),
                     ),
                     Container(
                       alignment: Alignment.centerRight,
@@ -48,7 +51,9 @@ class InnerWidget extends StatelessWidget {
                                       fontSize: 12.0, fontFamily: 'Roboto'),
                                 ),
                                 Text(
-                                  inner.price,
+                                  NumberFormat.simpleCurrency(name: "₮")
+                                      .format(int.parse(inner.price))
+                                      .toString(),
                                   style: const TextStyle(
                                       fontSize: 14.0,
                                       fontFamily: 'Roboto',

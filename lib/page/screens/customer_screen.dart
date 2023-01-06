@@ -4,6 +4,7 @@ import 'package:profile/model/customer_model.dart';
 import 'package:profile/db/notes_database.dart';
 import 'package:profile/widget/button_widget.dart';
 import '../../themes.dart';
+import '../../widget/AuthClipper_widget.dart';
 import 'customers_screen.dart';
 
 class CustomerScreen extends StatelessWidget {
@@ -26,24 +27,37 @@ class CustomerScreen extends StatelessWidget {
         builder: (context) => Scaffold(
           appBar:
           AppBar(),
-          body:
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+          body:Padding(
+            padding: const EdgeInsets.symmetric(),
             child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Icon(customers == null ? Icons.add : Icons.edit, color: MyThemes.iconColor,),
-                      const SizedBox(width: 10,),
-                      Text(customers == null ? 'Хэрэглэгч нэмэх' : 'Хэрэглэгч засах',style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
-                    ],
-                  ),
+                Stack(
+                  children: [
+                    Opacity(
+                      opacity: 0.8,
+                      child: ClipPath(
+                        clipper: AuthClipper(),
+                        child: Container(
+                          color: MyThemes.primary,
+                          height: 200,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Icon(customers == null ? Icons.add : Icons.edit, color: MyThemes.iconColor,),
+                          const SizedBox(width: 10,),
+                          Text(customers == null ? 'Хэрэглэгч нэмэх' : 'Хэрэглэгч засах',style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 30.0, top: 30),
+                  padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
                   child: TextFormField(
                     controller: nameController,
                     maxLines: 1,
@@ -61,6 +75,7 @@ class CustomerScreen extends StatelessWidget {
                             ))),
                   ),
                 ),
+                Padding(padding: const EdgeInsets.only(left: 30, right: 30, top: 30),child:
                 TextFormField(
                   controller: phoneController,
                   decoration: const InputDecoration(
@@ -78,7 +93,7 @@ class CustomerScreen extends StatelessWidget {
                   keyboardType: TextInputType.number,
                   onChanged: (str) {},
                   maxLength: 8,
-                ),
+                ),),
                 const Spacer(),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20.0),

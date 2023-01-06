@@ -20,20 +20,23 @@ class ProductWidget extends StatelessWidget {
       onLongPress: onLongPress,
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: Column(
+          padding: const EdgeInsets.only(top: 10),
+          child: Column(
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Align(
-                    child: Container(
-                      padding:
-                      const EdgeInsets.all(30),
-                      child: Text(
-                        products.name,
-                        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                        softWrap: true,
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        padding: const EdgeInsets.all(30),
+                        child: Text(
+                          products.name,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 18),
+                          softWrap: true,
+                        ),
                       ),
                     ),
                   ),
@@ -53,7 +56,10 @@ class ProductWidget extends StatelessWidget {
                                 const SizedBox(
                                   width: 5,
                                 ),
-                                Icon(Icons.arrow_forward,color: MyThemes.iconColor,),
+                                Icon(
+                                  Icons.arrow_forward,
+                                  color: MyThemes.iconColor,
+                                ),
                                 const SizedBox(
                                   width: 5,
                                 ),
@@ -64,10 +70,11 @@ class ProductWidget extends StatelessWidget {
                       ]),
                 ],
               ),
-              const Divider(thickness: 0.5,)
+              const Divider(
+                thickness: 0.5,
+              )
             ],
-          )
-      ),
+          )),
     );
   }
 }

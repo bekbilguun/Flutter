@@ -45,12 +45,13 @@ class ProductScreen extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 20),
+                          horizontal: 20, vertical: 50),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(
-                            Icons.store_mall_directory_outlined,
+                            products == null ?
+                            Icons.add : Icons.edit,
                             color: MyThemes.iconColor,
                           ),
                           const SizedBox(
@@ -58,7 +59,7 @@ class ProductScreen extends StatelessWidget {
                           ),
                           Text(
                             products == null
-                                ? 'Бүтээгдэхүүн'
+                                ? 'Бүтээгдэхүүн нэмэх'
                                 : 'Бүтээгдэхүүн засах',
                             style: const TextStyle(
                                 fontSize: 22, fontWeight: FontWeight.bold),

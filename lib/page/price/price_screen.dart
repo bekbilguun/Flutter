@@ -108,71 +108,78 @@ class _PriceScreenState extends State<PriceScreen> {
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 5),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
-                              widget.prices != null
-                                  ? Align(
-                                      child: Container(
-                                        padding: const EdgeInsets.symmetric(),
-                                        child: const Text(
-                                          'Бүтээгдэхүүн:',
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                    )
-                                  : TextButton(
-                                      style: ElevatedButton.styleFrom(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 0, vertical: 5),
-                                        // backgroundColor: Colors.blue,
-                                        // shape: const StadiumBorder(),
-                                      ),
-                                      onPressed: widget.prices != null
-                                          ? () {}
-                                          : () async {
-                                              final result =
-                                                  await Navigator.push(
-                                                context,
-                                                // Create the SelectionScreen in the next step.
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ProductPickerScreen(
-                                                            customer: widget
-                                                                .customer)),
-                                              );
-                                              _setProductId(result);
-                                            },
-                                      child: Row(
-                                        children: const <Widget>[
-                                          Text(
-                                            'Бүтээгдэхүүн',
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                          Icon(
-                                            Icons.arrow_drop_down,
-                                            color: Colors.black,
-                                          )
-                                        ],
-                                      )),
                               Align(
                                 child: Container(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 5),
-                                  child: Text(
-                                    widget.prices != null
-                                        ? widget.prices!.productId
-                                        : productId,
-                                    style: const TextStyle(fontSize: 18),
+                                  padding: const EdgeInsets.only(right: 5),
+                                  child: const Text(
+                                    'Бүтээгдэхүүн:',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
                                   ),
                                 ),
                               ),
+                              widget.prices == null
+                                  ? Expanded(
+                                      child: Container(
+                                      padding: const EdgeInsets.symmetric(),
+                                      child: OutlinedButton(
+                                        style: ElevatedButton.styleFrom(
+                                            // backgroundColor: Colors.blue,
+                                            side: const BorderSide(width: 1)),
+                                        onPressed: widget.prices != null
+                                            ? () {}
+                                            : () async {
+                                                final result =
+                                                    await Navigator.push(
+                                                  context,
+                                                  // Create the SelectionScreen in the next step.
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ProductPickerScreen(
+                                                              customer: widget
+                                                                  .customer)),
+                                                );
+                                                _setProductId(result);
+                                              },
+                                        child: Row(
+                                          children: <Widget>[
+                                            Expanded(
+                                              child: Text(
+                                                productId == ''
+                                                    ? 'Сонгоно уу'
+                                                    : productId,
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 18,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              ),
+                                            ),
+                                            const Icon(
+                                              Icons.arrow_drop_down,
+                                              color: Colors.black,
+                                            )
+                                          ],
+                                        ),
+                                      ),
+                                    ))
+                                  :Expanded(child: Align(
+                                  child:Expanded(child: Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 10),
+                                    child: Text(
+                                      widget.prices != null
+                                          ? widget.prices!.productId
+                                          : productId,
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
+                                  ),)
+                              ),)
                             ],
                           ),
                         ),
@@ -180,33 +187,6 @@ class _PriceScreenState extends State<PriceScreen> {
                     )
                   ],
                 ),
-
-                // widget.prices == null
-                //     ? Padding(
-                //         padding:
-                //             const EdgeInsets.only(right: 40, left: 40, top: 20),
-                //         child: SizedBox(
-                //             height: 50,
-                //             width: MediaQuery.of(context).size.width,
-                //             child: ButtonWidget(
-                //               text: 'Бүтээгдэхүүнээ сонгоно уу',
-                //               onClicked: widget.prices != null
-                //                   ? () {}
-                //                   : () async {
-                //                       final result = await Navigator.push(
-                //                         context,
-                //                         // Create the SelectionScreen in the next step.
-                //                         MaterialPageRoute(
-                //                             builder: (context) =>
-                //                                 ProductPickerScreen(
-                //                                     customer: widget.customer)),
-                //                       );
-                //                       _setProductId(result);
-                //                     },
-                //             )
-                //             ),
-                //       )
-                //     : const Padding(padding: EdgeInsets.only()),
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
