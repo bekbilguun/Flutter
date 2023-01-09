@@ -95,7 +95,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                 ),
                               ),
                               Expanded(child: Align(
-                                alignment: Alignment.centerRight,
+                                alignment: Alignment.centerLeft,
                                 child: Container(
                                   padding: const EdgeInsets.only(),
                                   child: Text(

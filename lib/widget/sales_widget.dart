@@ -41,9 +41,7 @@ class SalesWidget extends StatelessWidget {
                                     fontSize: 18, fontWeight: FontWeight.bold),
                                 softWrap: true,
                                 textAlign: TextAlign.start),
-                            Text(
-                                DateFormat.yMMMd().format(
-                                    DateTime.parse(sale.createdAt.toString())),
+                            Text(DateFormat.yMMMd().add_jm().format(DateTime.fromMillisecondsSinceEpoch(sale.createdAt)).toString(),
                                 softWrap: true,
                                 textAlign: TextAlign.left),
                           ],

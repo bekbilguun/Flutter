@@ -17,7 +17,7 @@ class DatabaseHelper {
   static const price =
       "CREATE TABLE PRICES (id INTEGER PRIMARY key, customerId TEXT, productId TEXT, price TEXT);";
   static const sales =
-      "CREATE TABLE SALES (id INTEGER PRIMARY key, customerId INTEGER, customerName TEXT, total INTEGER, createdAt DATETIME DEFAULT CURRENT_TIMESTAMP);";
+      "CREATE TABLE SALES (id INTEGER PRIMARY key, customerId INTEGER, customerName TEXT, total INTEGER, createdAt INTEGER);";
   static const saleProducrts =
       "CREATE TABLE SALE_PRODUCTS (id INTEGER PRIMARY key, saleId INTEGER, customerId INTEGER, productId INTEGER,productName TEXT, price INTEGER, count INTEGER, total INTEGER);";
 
@@ -199,6 +199,39 @@ class DatabaseHelper {
       return null;
     }
     return List.generate(maps.length, (index) => Sale.fromJson(maps[index]));
+  }
+
+  static Future<List<Sale>?> getSales(DateTime startDate, DateTime ?endDate) async {
+    int startTimestamp = startDate.millisecondsSinceEpoch;
+    int endTimestamp = endDate!.millisecondsSinceEpoch;
+    print("startDate $startDate: $startTimestamp");
+    print("endDatae $endDate: $endTimestamp");
+    final db = await _getDB();
+    print("_____________________IAM_Sale_DATE_FILTERS_______________");
+    List list = await db.rawQuery("SELECT * FROM SALES WHERE createdAt > ? and createdAt < ?", [startTimestamp, endTimestamp]);
+    final count = await db.rawQuery("SELECT count(*)as count , sum(total) as total from SALES WHERE createdAt >= ? and createdAt < ?", [startTimestamp, endTimestamp]);
+    print(list);
+    print("COUNT______: $count");
+    // print("total: $total");
+    if (list.isEmpty) {
+      return null;
+    }
+    return List.generate(list.length, (index) => Sale.fromJson(list[index]));
+  }
+  static getSaleStats(DateTime startDate, DateTime ?endDate) async {
+    int startTimestamp = startDate.millisecondsSinceEpoch;
+    int endTimestamp = endDate!.millisecondsSinceEpoch;
+    print("startDate $startDate: $startTimestamp");
+    print("endDatae $endDate: $endTimestamp");
+    final db = await _getDB();
+    print("_____________________IAM_getSaleStats_______________");
+    final count = await db.rawQuery("SELECT count(*) as count , sum(total) as total from SALES WHERE createdAt >= ? and createdAt < ?", [startTimestamp, endTimestamp]);
+    print("COUNT______: $count");
+    // print("total: $total");
+    if (count.isEmpty) {
+      return null;
+    }
+    return count[0];
   }
 
 // -------------------------------SALE-PRODUCT---------------------------------------

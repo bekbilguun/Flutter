@@ -107,8 +107,7 @@ class _SaleDetailScreenState extends State<SaleDetailScreen> {
                                        fontWeight: FontWeight.bold),
                                  ),
                                  Text(
-                                   DateFormat.yMMMd().format(DateTime.parse(
-                                       widget.sale!.createdAt.toString())),
+                                   DateFormat.yMMMd().format(DateTime.fromMillisecondsSinceEpoch(widget.sale!.createdAt)).toString(),
                                    style: const TextStyle(fontSize: 18),
                                  ),
                                ],

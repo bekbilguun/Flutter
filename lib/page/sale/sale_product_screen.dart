@@ -7,7 +7,6 @@ import 'package:profile/model/inner_model.dart';
 import 'package:profile/model/sale_model.dart';
 import 'package:profile/model/sale_product_model.dart';
 import 'package:profile/page/sale/sales_screen.dart';
-import 'package:profile/widget/appbar_widget.dart';
 import 'package:profile/widget/sale_widget.dart';
 
 import '../../themes.dart';
@@ -204,7 +203,7 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
           ),
         )),
         Card(
-          color: Colors.orange.shade300,
+          color: MyThemes.primary.shade300,
           // elevation: 5,
           child: Column(
             children: [
@@ -241,8 +240,8 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
                       id: widget.sale?.id,
                       customerId: widget.customer!.id,
                       customerName: widget.customer!.name,
+                      createdAt: DateTime.now().millisecondsSinceEpoch,
                       total: _total,
-                      // createdAt: "2020-10-12 13:35:06"
                     );
                     final saleId = await DatabaseHelper.addSale(saleModel);
                     for (var element in widget.products) {
