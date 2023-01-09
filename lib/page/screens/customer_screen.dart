@@ -95,36 +95,39 @@ class CustomerScreen extends StatelessWidget {
                   maxLength: 8,
                 ),),
                 const Spacer(),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20.0),
-                  child: SizedBox(
-                    height: 45,
-                    width: MediaQuery.of(context).size.width,
-                    child: ButtonWidget(
-                      text: customers == null ? 'Нэмэх' : 'Хадгалах',
-                      onClicked: () async {
-                        final name = nameController.value.text;
-                        final phone = phoneController.value.text;
+                Expanded(child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child: SizedBox(
+                      height: 45,
+                      width: MediaQuery.of(context).size.width,
+                      child: ButtonWidget(
+                        text: customers == null ? 'Нэмэх' : 'Хадгалах',
+                        onClicked: () async {
+                          final name = nameController.value.text;
+                          final phone = phoneController.value.text;
 
-                        if (name.isEmpty || phone.isEmpty) {
-                          return;
-                        }
+                          if (name.isEmpty || phone.isEmpty) {
+                            return;
+                          }
 
-                        final Customers model = Customers(
-                            name: name, phone: phone, id: customers?.id);
-                        if (customers == null) {
-                          await DatabaseHelper.addCustomer(model);
-                        } else {
-                          await DatabaseHelper.updateCustomer(model);
-                        }
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CustomersScreen()));
-                      },
+                          final Customers model = Customers(
+                              name: name, phone: phone, id: customers?.id);
+                          if (customers == null) {
+                            await DatabaseHelper.addCustomer(model);
+                          } else {
+                            await DatabaseHelper.updateCustomer(model);
+                          }
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CustomersScreen()));
+                        },
+                      ),
                     ),
                   ),
-                )
+                ))
               ],
             ),
           ),

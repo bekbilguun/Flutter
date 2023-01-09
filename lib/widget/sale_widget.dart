@@ -83,7 +83,7 @@ class _SaleWidgetState extends State<SaleWidget> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.all(5),
+                  padding:const EdgeInsets.all(5),
                   child: Column(
                     children: [
                       Row(

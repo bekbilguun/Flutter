@@ -102,9 +102,10 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                               const Text('Нэр: ',
                                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                               ),
-                              Text(widget.customer!.name,
+                              Expanded(child: Text(widget.customer!.name,
                                 style:const TextStyle(fontSize: 18),
-                              ),
+                              ),)
+
                             ],
                           ),
                         ),

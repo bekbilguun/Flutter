@@ -61,8 +61,8 @@ class _SaleProductScreenState extends State<SaleProductScreen> {
                     Column(
                       children: [
                         Padding(
-                          padding:
-                          const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -77,8 +77,7 @@ class _SaleProductScreenState extends State<SaleProductScreen> {
                                   ),
                                   const Text(
                                     'Борлуулалт',
-                                    style: TextStyle(
-                                        fontSize: 22),
+                                    style: TextStyle(fontSize: 22),
                                   )
                                 ],
                               ),
@@ -86,21 +85,21 @@ class _SaleProductScreenState extends State<SaleProductScreen> {
                           ),
                         ),
                         Padding(
-                          padding:
-                          const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 20),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-
-                                  const Text(
-                                    'Hi ',
-                                    style: TextStyle(fontSize: 20),
-                                  ),
-                                  Text(
-                                    widget.customer!.name,
-                                    style: const TextStyle(
-                                        fontSize: 20),
-                                  ),
+                              const Text(
+                                'Hi ',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              Expanded(
+                                child: Text(
+                                  widget.customer!.name,
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                              )
                             ],
                           ),
                         ),
@@ -190,7 +189,8 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(child: Padding(
+        Expanded(
+            child: Padding(
           padding: EdgeInsets.all(0),
           child: ListView.builder(
             scrollDirection: Axis.vertical,
@@ -203,7 +203,6 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
             itemCount: widget.products.length,
           ),
         )),
-
         Card(
           color: Colors.orange.shade300,
           // elevation: 5,
@@ -216,20 +215,25 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     child: Text(
                       'Нийт үнэ:',
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 20),
                     child: Text(
-                      NumberFormat.simpleCurrency(name: "₮").format(_total).toString(),
-                      style:
-                      const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      NumberFormat.simpleCurrency(name: "₮")
+                          .format(_total)
+                          .toString(),
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ],
               ),
-              Padding(padding: EdgeInsets.only(bottom: 20),
+              Padding(
+                padding: EdgeInsets.only(bottom: 20),
                 child: ButtonWidget(
                   text: 'Дуусгах',
                   onClicked: () async {
@@ -250,7 +254,8 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
                         productName: element.productId,
                         total: element.total,
                         price: double.parse(element.price),
-                        count: element.count,);
+                        count: element.count,
+                      );
                       if (element.count > 0) {
                         await DatabaseHelper.addSaleProduct(saleproductModel);
                       }
@@ -260,8 +265,8 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
                         MaterialPageRoute(builder: (context) => SalesScreen()));
                     setState(() {});
                   },
-                )
-                ,)
+                ),
+              )
             ],
           ),
         )

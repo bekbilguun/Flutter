@@ -94,7 +94,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                   ),
                                 ),
                               ),
-                              Align(
+                              Expanded(child: Align(
                                 alignment: Alignment.centerRight,
                                 child: Container(
                                   padding: const EdgeInsets.only(),
@@ -103,7 +103,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                     style: const TextStyle(fontSize: 18),
                                   ),
                                 ),
-                              ),
+                              ),)
                             ],
                           ),
                         ),
