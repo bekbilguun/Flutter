@@ -26,36 +26,16 @@ class CustomerScreen extends StatelessWidget {
       child: Builder(
         builder: (context) => Scaffold(
           appBar:
-          AppBar(),
+          AppBar(
+            title:Align(
+              alignment: Alignment.center,
+              child: Text(customers == null ? 'Хэрэглэгч нэмэх' : 'Хэрэглэгч засах',style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+            )
+          ),
           body:Padding(
             padding: const EdgeInsets.symmetric(),
             child: Column(
               children: [
-                Stack(
-                  children: [
-                    Opacity(
-                      opacity: 0.8,
-                      child: ClipPath(
-                        clipper: AuthClipper(),
-                        child: Container(
-                          color: MyThemes.primary,
-                          height: 200,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 50),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(customers == null ? Icons.add : Icons.edit, color: MyThemes.iconColor,),
-                          const SizedBox(width: 10,),
-                          Text(customers == null ? 'Хэрэглэгч нэмэх' : 'Хэрэглэгч засах',style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
                 Padding(
                   padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
                   child: TextFormField(

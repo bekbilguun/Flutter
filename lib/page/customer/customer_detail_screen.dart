@@ -4,7 +4,7 @@ import 'package:profile/model/customer_model.dart';
 import 'package:profile/db/notes_database.dart';
 import 'package:profile/model/inner_model.dart';
 import 'package:profile/page/price/price_screen.dart';
-import 'package:profile/page/screens/customer_screen.dart';
+import 'package:profile/page/customer/customer_screen.dart';
 import 'package:profile/widget/inner_widget.dart';
 
 import '../../model/price_model.dart';
@@ -36,6 +36,7 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
       child: Builder(
         builder: (context) => Scaffold(
           appBar:AppBar(
+            title: const Text('Хэрэглэгчийн мэдээлэл',),
             actions: [
               IconButton(
                 icon:const Icon(
@@ -78,23 +79,12 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                         clipper: AuthClipper(),
                         child: Container(
                           color: MyThemes.primary,
-                          height: 200,
+                          height: 100,
                         ),
                       ),
                     ),
                     Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children:<Widget>[
-                              Icon(Icons.person_outline, color: MyThemes.iconColor,),
-                              const SizedBox(width: 10,),
-                              const Text('Хэрэглэгчийн мэдээлэл',style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
-                            ],
-                          ),
-                        ),
                         Padding(
                           padding:const EdgeInsets.symmetric(horizontal: 20 ,vertical: 5),
                           child: Row(

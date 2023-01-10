@@ -25,50 +25,20 @@ class ProductScreen extends StatelessWidget {
     return ThemeSwitchingArea(
       child: Builder(
         builder: (context) => Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            title: Text(
+              products == null
+                  ? 'Бүтээгдэхүүн нэмэх'
+                  : 'Бүтээгдэхүүн засах',
+              style: const TextStyle(
+                  fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+          ),
           body: Padding(
             padding: const EdgeInsets.symmetric(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Stack(
-                  children: [
-                    Opacity(
-                      opacity: 0.8,
-                      child: ClipPath(
-                        clipper: AuthClipper(),
-                        child: Container(
-                          color: MyThemes.primary,
-                          height: 200,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 50),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Icon(
-                            products == null ?
-                            Icons.add : Icons.edit,
-                            color: MyThemes.iconColor,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            products == null
-                                ? 'Бүтээгдэхүүн нэмэх'
-                                : 'Бүтээгдэхүүн засах',
-                            style: const TextStyle(
-                                fontSize: 22, fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
                 Padding(
                   padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
                   child: TextFormField(

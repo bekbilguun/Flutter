@@ -23,14 +23,35 @@ class DatabaseHelper {
 
   static Future<Database> _getDB() async {
     String path = join(await getDatabasesPath(), _dbName);
+    void _updateTableAddColumnV1toV2(Batch batch) {
+      batch.execute("ALTER TABLE CUSTOMERS ADD COLUMN registerNo INTEGER DEFAULT uk00301833");
+    }
 
-    return await openDatabase(path, version: 2, onCreate: (db, version) async {
-      await db.execute(cusmtomer);
-      await db.execute(products);
-      await db.execute(price);
-      await db.execute(sales);
-      await db.execute(saleProducrts);
-    });
+    void _dropTableEmployeeV2(Batch batch) {
+      batch.execute("ALTER TABLE CUSTOMERS DROP COLUMN registerNo;");
+    }
+
+    return await openDatabase(
+      path,
+      version: 3,
+      onCreate: (db, version) async {
+        await db.execute(cusmtomer);
+        await db.execute(products);
+        await db.execute(price);
+        await db.execute(sales);
+        await db.execute(saleProducrts);
+      },
+      onUpgrade: (db, oldVersion, newVersion) async {
+        var batch = db.batch();
+        print("OLDVERSION:$oldVersion");
+        print("newVersion:$newVersion");
+        if (oldVersion < newVersion) {
+          _updateTableAddColumnV1toV2(batch);
+          _dropTableEmployeeV2(batch);
+        }
+        await batch.commit();
+      },
+    );
   }
 
   static Future<int> addCustomer(Customers customers) async {
@@ -201,37 +222,35 @@ class DatabaseHelper {
     return List.generate(maps.length, (index) => Sale.fromJson(maps[index]));
   }
 
-  static Future<List<Sale>?> getSales(DateTime startDate, DateTime ?endDate) async {
+  static Future<List<Sale>?> getSales(
+      DateTime startDate, DateTime? endDate) async {
     int startTimestamp = startDate.millisecondsSinceEpoch;
     int endTimestamp = endDate!.millisecondsSinceEpoch;
-    print("startDate $startDate: $startTimestamp");
-    print("endDatae $endDate: $endTimestamp");
     final db = await _getDB();
     print("_____________________IAM_Sale_DATE_FILTERS_______________");
-    List list = await db.rawQuery("SELECT * FROM SALES WHERE createdAt > ? and createdAt < ?", [startTimestamp, endTimestamp]);
-    final count = await db.rawQuery("SELECT count(*)as count , sum(total) as total from SALES WHERE createdAt >= ? and createdAt < ?", [startTimestamp, endTimestamp]);
+    List list = await db.rawQuery(
+        "SELECT * FROM SALES WHERE createdAt > ? and createdAt < ? ORDER BY createdAt DESC",
+        [startTimestamp, endTimestamp]);
     print(list);
-    print("COUNT______: $count");
     // print("total: $total");
     if (list.isEmpty) {
       return null;
     }
     return List.generate(list.length, (index) => Sale.fromJson(list[index]));
   }
-  static getSaleStats(DateTime startDate, DateTime ?endDate) async {
+
+  static getSaleStats(DateTime startDate, DateTime? endDate) async {
     int startTimestamp = startDate.millisecondsSinceEpoch;
     int endTimestamp = endDate!.millisecondsSinceEpoch;
-    print("startDate $startDate: $startTimestamp");
-    print("endDatae $endDate: $endTimestamp");
     final db = await _getDB();
-    print("_____________________IAM_getSaleStats_______________");
-    final count = await db.rawQuery("SELECT count(*) as count , sum(total) as total from SALES WHERE createdAt >= ? and createdAt < ?", [startTimestamp, endTimestamp]);
-    print("COUNT______: $count");
-    // print("total: $total");
-    if (count.isEmpty) {
+    final stats = await db.rawQuery(
+        "SELECT count(*) as count , sum(total) as total from SALES WHERE createdAt >= ? and createdAt < ?",
+        [startTimestamp, endTimestamp]);
+    print("COUNT______: $stats");
+    if (stats.isEmpty) {
       return null;
     }
-    return count[0];
+    return stats[0];
   }
 
 // -------------------------------SALE-PRODUCT---------------------------------------
@@ -239,7 +258,7 @@ class DatabaseHelper {
     final db = await _getDB();
     print(
         "____________________IAM__ADD__SALE__PRODUCT________________________");
-print(saleProduct.toJson());
+    print(saleProduct.toJson());
     final addsale = await db.insert("SALE_PRODUCTS", saleProduct.toJson());
     print(saleProduct.toJson());
     return addsale;
@@ -248,11 +267,13 @@ print(saleProduct.toJson());
   static Future<List<SaleProduct>?> getAllSaleProducts(Sale) async {
     final db = await _getDB();
     print("_____________________IAM_Sale_LIST___PRODUCT______________________");
-    final List<Map<String, dynamic>> maps = await db.query("SALE_PRODUCTS", where: 'saleId = ?', whereArgs: [Sale.id]);
+    final List<Map<String, dynamic>> maps = await db
+        .query("SALE_PRODUCTS", where: 'saleId = ?', whereArgs: [Sale.id]);
     print(await db.query("SALE_PRODUCTS"));
     if (maps.isEmpty) {
       return null;
     }
-    return List.generate(maps.length, (index) => SaleProduct.fromJson(maps[index]));
+    return List.generate(
+        maps.length, (index) => SaleProduct.fromJson(maps[index]));
   }
 }

@@ -38,7 +38,15 @@ class _PriceScreenState extends State<PriceScreen> {
     return ThemeSwitchingArea(
       child: Builder(
         builder: (context) => Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            title:Text(
+              widget.prices == null
+                  ? 'Худалдах үнэ'
+                  : 'Худалдах үнэ засах',
+              style: const TextStyle(
+                  fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+          ),
           body: Padding(
             padding: const EdgeInsets.all(0),
             child: Column(
@@ -51,32 +59,12 @@ class _PriceScreenState extends State<PriceScreen> {
                         clipper: AuthClipper(),
                         child: Container(
                           color: MyThemes.primary,
-                          height: 200,
+                          height: 100,
                         ),
                       ),
                     ),
                     Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(
-                                widget.prices == null ? Icons.add : Icons.edit,
-                                color: MyThemes.iconColor,
-                              ),
-                              const SizedBox(width: 10),
-                              Text(
-                                widget.prices == null
-                                    ? 'Худалдах үнэ'
-                                    : 'Худалдах үнэ засах',
-                                style: const TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 20, vertical: 5),

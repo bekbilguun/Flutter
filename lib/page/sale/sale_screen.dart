@@ -23,6 +23,11 @@ class _SaleScreenState extends State<SaleScreen> {
       child: Builder(
           builder: (context) => Scaffold(
               appBar: AppBar(
+                title: const Text(
+                  'Худалдан авагч',
+                  style: TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
+                ),
                 actions: [
                   IconButton(
                     icon: const Icon(
@@ -51,29 +56,8 @@ class _SaleScreenState extends State<SaleScreen> {
                             clipper: AuthClipper(),
                             child: Container(
                               color: MyThemes.primary,
-                              height: 200,
+                              height: 100,
                             ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 50),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(
-                                Icons.store_mall_directory_outlined,
-                                color: MyThemes.iconColor,
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              const Text(
-                                'Худалдан авагч',
-                                style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.bold),
-                              ),
-                            ],
                           ),
                         ),
                       ],

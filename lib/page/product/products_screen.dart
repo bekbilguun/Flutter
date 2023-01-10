@@ -45,13 +45,13 @@ class ProductsScreenState extends State<ProductsScreen> {
                           clipper: AuthClipper(),
                           child: Container(
                             color: MyThemes.primary,
-                            height: 200,
+                            height: 100,
                           ),
                         ),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 50),
+                            horizontal: 20, vertical: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[

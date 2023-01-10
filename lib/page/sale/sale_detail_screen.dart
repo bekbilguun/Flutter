@@ -4,10 +4,12 @@ import 'package:intl/intl.dart';
 import 'package:profile/db/notes_database.dart';
 import 'package:profile/model/sale_model.dart';
 import 'package:profile/model/sale_product_model.dart';
+import 'package:profile/page/sale/sale_print_screen.dart';
 import 'package:profile/widget/sale_products_widget.dart';
 
 import '../../themes.dart';
 import '../../widget/AuthClipper_widget.dart';
+import '../../widget/button_widget.dart';
 
 class SaleDetailScreen extends StatefulWidget {
   final Sale? sale;
@@ -25,8 +27,29 @@ class _SaleDetailScreenState extends State<SaleDetailScreen> {
       child: Builder(
         builder: (context) => Scaffold(
           appBar: AppBar(
-            title: const Text('Sale detail products'),
+            title: Row(
+              children: [
+                Text('Sale detail '),
+                Expanded(
+                    child: Text(
+                      widget.sale!.customerName,
+                      style: const TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.bold),
+                    ))
+              ],
+            ) ,
             centerTitle: true,
+          ),
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: MyThemes.primary,
+            onPressed: () async {
+              await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SalePrintScreen(sale: widget.sale,)));
+              setState(() {});
+            },
+            child: const Icon(Icons.print),
           ),
           body: Padding(
             padding: const EdgeInsets.all(0),
@@ -41,82 +64,63 @@ class _SaleDetailScreenState extends State<SaleDetailScreen> {
                         clipper: AuthClipper(),
                         child: Container(
                           color: MyThemes.primary,
-                          height: 200,
+                          height: 100,
                         ),
                       ),
                     ),
-                   Expanded(child: Column(
-                     children: [
-                       Padding(
-                         padding: const EdgeInsets.symmetric(
-                             horizontal: 20, vertical: 20),
-                         child: Row(
-                           mainAxisAlignment: MainAxisAlignment.center,
-                           children: [
-                             Icon(Icons.contact_mail_sharp,
-                                 color: MyThemes.iconColor),
-                             const SizedBox(width: 10),
-                             Expanded(child: Text(
-                               widget.sale!.customerName,
-                               style: const TextStyle(
-                                   fontSize: 22, fontWeight: FontWeight.bold),
-                             ))
-                           ],
-                         ),
-                       ),
-                       Padding(
-                         padding: const EdgeInsets.symmetric(
-                             horizontal: 20, vertical: 5),
-                         child: Row(
-                           children: [
-                             Row(
-                               children: <Widget>[
-                                 Icon(Icons.monetization_on,
-                                     color: MyThemes.iconColor),
-                                 const SizedBox(width: 5),
-                                 const Text(
-                                   'Нийт үнэ: ',
-                                   style: TextStyle(
-                                       fontSize: 18,
-                                       fontWeight: FontWeight.bold),
-                                 ),
-                                 Text(
-                                   NumberFormat.simpleCurrency(name: "₮")
-                                       .format(widget.sale!.total)
-                                       .toString(),
-                                   style: const TextStyle(fontSize: 18),
-                                 ),
-                               ],
-                             ),
-                           ],
-                         ),
-                       ),
-                       Padding(
-                         padding: const EdgeInsets.only(left: 20),
-                         child: Row(
-                           children: [
-                             Row(
-                               children: <Widget>[
-                                 Icon(Icons.date_range_outlined,
-                                     color: MyThemes.iconColor),
-                                 const SizedBox(width: 5),
-                                 const Text(
-                                   'Огноо: ',
-                                   style: TextStyle(
-                                       fontSize: 18,
-                                       fontWeight: FontWeight.bold),
-                                 ),
-                                 Text(
-                                   DateFormat.yMMMd().format(DateTime.fromMillisecondsSinceEpoch(widget.sale!.createdAt)).toString(),
-                                   style: const TextStyle(fontSize: 18),
-                                 ),
-                               ],
-                             ),
-                           ],
-                         ),
-                       ),
-                     ],
-                   ))
+                    Expanded(
+                        child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, left: 10),
+                          child: Row(
+                            children: [
+                              Row(
+                                children: <Widget>[
+                                  const Text(
+                                    'Нийт үнэ: ',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    NumberFormat.simpleCurrency(name: "₮")
+                                        .format(widget.sale!.total)
+                                        .toString(),
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10),
+                          child: Row(
+                            children: [
+                              Row(
+                                children: <Widget>[
+                                  const Text(
+                                    'Огноо: ',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    DateFormat.yMMMd()
+                                        .format(
+                                            DateTime.fromMillisecondsSinceEpoch(
+                                                widget.sale!.createdAt))
+                                        .toString(),
+                                    style: const TextStyle(fontSize: 18),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ))
                   ],
                 ),
                 const Padding(
@@ -167,6 +171,18 @@ class _SaleDetailScreenState extends State<SaleDetailScreen> {
                     ),
                   ),
                 ),
+                // Padding(
+                //   padding: EdgeInsets.only(bottom: 20),
+                //   child: ButtonWidget(
+                //       text: 'Хэвлэх',
+                //       onClicked: () async {
+                //         await Navigator.push(
+                //             context,
+                //             MaterialPageRoute(
+                //                 builder: (context) => SalePrintScreen(sale: widget.sale)));
+                //         setState(() {});
+                //       }),
+                // )
               ],
             ),
           ),

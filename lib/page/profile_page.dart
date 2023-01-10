@@ -6,7 +6,7 @@ import 'package:profile/page/edit_profile_page.dart';
 import 'package:profile/page/product/products_screen.dart';
 import 'package:profile/page/sale/sale_screen.dart';
 import 'package:profile/page/sale/sales_screen.dart';
-import 'package:profile/page/screens/customers_screen.dart';
+import 'package:profile/page/customer/customers_screen.dart';
 import 'package:profile/utils/user_preferences.dart';
 import 'package:profile/widget/appbar_widget.dart';
 import 'package:profile/widget/button_widget.dart';
@@ -28,32 +28,48 @@ class _ProfilePageState extends State<ProfilePage> {
         builder: (context) => Scaffold(
           appBar: buildAppBar(context),
           body: ListView(
-            physics:const BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             children: [
               ProfileWidget(
                 imagePath: user.imagePath,
                 onClicked: () async {
-                    await Navigator.of(context).push(
+                  await Navigator.of(context).push(
                     MaterialPageRoute(builder: (context) => EditProfilePage()),
                   );
-                    setState(() {});
+                  setState(() {});
                 },
               ),
               const SizedBox(height: 24),
               buildName(user),
               const SizedBox(height: 24),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(padding:const EdgeInsets.symmetric(horizontal: 15),
-                  child: buildProductButton(),),
-                  Padding(padding:const EdgeInsets.symmetric(horizontal: 5),
-                    child: buildCustomerButton(),),
-                  Padding(padding:const EdgeInsets.symmetric(horizontal: 5),
-                    child: buildSalesButton(),),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: buildProductButton(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: buildCustomerButton(),
+                  ),
                 ],
               ),
-              Padding(padding:const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                child: buildSaleButton(),),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
+                    child: buildSalesButton(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15),
+                    child: buildSaleButton(),
+                  ),
+                ],
+              ),
+
               // Center(child: buildCustomerButton()),
               // Center(child: buildProductButton()),
               // Center(child: buildSaleButton()),
@@ -72,48 +88,52 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           Text(
             user.name,
-            style:const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
           ),
           const SizedBox(height: 4),
           Text(
             user.email,
-            style:const TextStyle(color: Colors.grey),
+            style: const TextStyle(color: Colors.grey),
           )
         ],
       );
 
   Widget buildCustomerButton() => ButtonWidget(
         text: 'Customer',
-        onClicked: ()  async {
+        onClicked: () async {
           await Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const CustomersScreen()));
+              MaterialPageRoute(builder: (context) => const CustomersScreen()));
           setState(() {});
         },
-  );
+      );
+
   Widget buildProductButton() => ButtonWidget(
-    text: 'Product',
-    onClicked: ()  async {
-      await Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const ProductsScreen()));
-      setState(() {});
-    },
-  );
+        text: 'Product',
+        onClicked: () async {
+          await Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const ProductsScreen()));
+          setState(() {});
+        },
+      );
+
   Widget buildSaleButton() => ButtonWidget(
-    text: 'Sale',
-    onClicked: ()  async {
-      await Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const SaleScreen()));
-      setState(() {});
-    },
-  );
+        text: 'Sale',
+        onClicked: () async {
+          await Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const SaleScreen()));
+          setState(() {});
+        },
+      );
+
   Widget buildSalesButton() => ButtonWidget(
-    text: 'Sales',
-    onClicked: ()  async {
-      await Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const SalesScreen()));
-      setState(() {});
-    },
-  );
+        text: 'Sales',
+        onClicked: () async {
+          await Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const SalesScreen()));
+          setState(() {});
+        },
+      );
+
   Widget buildAbout(User user) => Container(
         padding: const EdgeInsets.symmetric(horizontal: 48),
         child: Column(
@@ -126,7 +146,7 @@ class _ProfilePageState extends State<ProfilePage> {
             const SizedBox(height: 16),
             Text(
               user.about,
-              style:const TextStyle(fontSize: 16, height: 1.4),
+              style: const TextStyle(fontSize: 16, height: 1.4),
             ),
           ],
         ),

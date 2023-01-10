@@ -2,7 +2,7 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:profile/model/customer_model.dart';
 import 'package:profile/db/notes_database.dart';
-import 'package:profile/page/screens/customer_detail_screen.dart';
+import 'package:profile/page/customer/customer_detail_screen.dart';
 import 'package:profile/widget/customers_widget.dart';
 import '../../themes.dart';
 import '../../widget/AuthClipper_widget.dart';
@@ -21,7 +21,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
     return ThemeSwitchingArea(
       child: Builder(
         builder: (context) => Scaffold(
-            appBar: AppBar(centerTitle: false),
+            appBar: AppBar(),
             floatingActionButton: FloatingActionButton(
               backgroundColor: MyThemes.primary,
               onPressed: () async {
@@ -46,23 +46,23 @@ class _CustomersScreenState extends State<CustomersScreen> {
                           clipper: AuthClipper(),
                           child: Container(
                             color: MyThemes.primary,
-                            height: 200,
+                            height: 100,
                           ),
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20 , vertical: 50),
+                        padding: const EdgeInsets.symmetric(horizontal: 20 , vertical: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const <Widget>[
+                          children: <Widget>[
                             Icon(
                               Icons.person_outline,
-                              color: Colors.red,
+                              color: MyThemes.iconColor,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
-                            Text(
+                            const Text(
                               'Хэрэглэгчид',
                               style: TextStyle(
                                   fontSize: 22,

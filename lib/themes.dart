@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MyThemes {
-  static const primary = Colors.orange;
+  static const primary = Colors.pink;
   static final primaryColor = Colors.blue.shade500;
-  static final iconColor = Colors.red.shade500;
+  static final iconColor = Colors.black;
 
   static final darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.grey.shade900,
