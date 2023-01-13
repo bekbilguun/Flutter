@@ -54,22 +54,32 @@ class _SalePrintScreenState extends State<SalePrintScreen> {
                 ));
                 setState(() => {this.bytes = bytes, play = !play});
                 saveImage(bytes);
-                // await Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => TestScreen()));
+                await Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => TestScreen()));
               },
               child: const Icon(Icons.print),
             ),
-            body: Card(
-                elevation: 5,
-                // color: Colors.green,
-                margin: const EdgeInsets.all(30),
-                child: Expanded(
-                    child: AnimatedPositioned(
-                  child: Expanded(child: buildCard(),),
-                  curve: Curves.easeInOut,
-                  duration: const Duration(milliseconds: 1200),
-                  height: play ? 100 : 0,
-                )))),
+            body: Padding(
+              padding: EdgeInsets.all(20),
+              child: Expanded(
+                child: buildCard(),
+              ),
+            )
+            // Stack(
+            //   children: <Widget>[
+            //     AnimatedPositioned(
+            //       curve: Curves.easeInOut,
+            //       duration: const Duration(milliseconds: 1200),
+            //       height: play ? 200 : 0,
+            //       child: Card(
+            //           elevation: 5,
+            //           // color: Colors.green,
+            //           margin: EdgeInsets.all(30),
+            //           child: Expanded(child: buildCard())),
+            //     )
+            //   ],
+            // )
+      ),
       ),
     );
   }

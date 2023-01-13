@@ -128,9 +128,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                                   // Create the SelectionScreen in the next step.
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          ProductPickerScreen(
-                                                              customer: widget
-                                                                  .customer)),
+                                                          ProductPickerScreen()),
                                                 );
                                                 _setProductId(result);
                                               },
