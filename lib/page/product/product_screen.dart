@@ -2,9 +2,6 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:profile/db/notes_database.dart';
 import 'package:profile/model/product_model.dart';
-import 'package:profile/themes.dart';
-
-import '../../widget/AuthClipper_widget.dart';
 import '../../widget/button_widget.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -27,11 +24,8 @@ class ProductScreen extends StatelessWidget {
         builder: (context) => Scaffold(
           appBar: AppBar(
             title: Text(
-              products == null
-                  ? 'Бүтээгдэхүүн нэмэх'
-                  : 'Бүтээгдэхүүн засах',
-              style: const TextStyle(
-                  fontSize: 22, fontWeight: FontWeight.bold),
+              products == null ? 'Бүтээгдэхүүн нэмэх' : 'Бүтээгдэхүүн засах',
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
           ),
           body: Padding(
@@ -79,11 +73,12 @@ class ProductScreen extends StatelessWidget {
                   ),
                 ),
                 const Spacer(),
-                Expanded(child: Align(
+                Expanded(
+                    child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding:
-                    const EdgeInsets.only(left: 30, right: 30, bottom: 30),
+                        const EdgeInsets.only(left: 30, right: 30, bottom: 30),
                     child: SizedBox(
                         height: 45,
                         width: MediaQuery.of(context).size.width,

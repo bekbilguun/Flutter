@@ -42,7 +42,7 @@ class CustomerWidget extends StatelessWidget {
                   Align(
                     child: Container(
                       padding: const EdgeInsets.all(10),
-                      child: Icon(
+                      child: const Icon(
                         Icons.arrow_forward,
                         color: MyThemes.iconColor,
                       ),

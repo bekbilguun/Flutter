@@ -1,15 +1,14 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:profile/db/notes_database.dart';
 import 'package:profile/model/sale_model.dart';
 import 'package:profile/model/sale_product_model.dart';
 import 'package:profile/page/sale/test_screen.dart';
+import 'package:profile/utils/app_logger.dart';
 import 'package:profile/widget/sale_product_print_widget.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:screenshot/screenshot.dart';
@@ -18,9 +17,9 @@ import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 import '../../themes.dart';
 
 class SalePrintScreen extends StatefulWidget {
-  final Sale? sale;
+  final Sale sale;
 
-  const SalePrintScreen({Key? key, this.sale}) : super(key: key);
+  const SalePrintScreen({Key? key, required this.sale}) : super(key: key);
 
   @override
   State<SalePrintScreen> createState() => _SalePrintScreenState();
@@ -60,7 +59,7 @@ class _SalePrintScreenState extends State<SalePrintScreen> {
               child: const Icon(Icons.print),
             ),
             body: Padding(
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Expanded(
                 child: buildCard(),
               ),
@@ -79,7 +78,7 @@ class _SalePrintScreenState extends State<SalePrintScreen> {
             //     )
             //   ],
             // )
-      ),
+            ),
       ),
     );
   }
@@ -97,10 +96,7 @@ class _SalePrintScreenState extends State<SalePrintScreen> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const Text("ТТД : "),
-                Text(widget.sale!.id.toString())
-              ],
+              children: [const Text("ТТД : "), Text(widget.sale.id.toString())],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -109,7 +105,7 @@ class _SalePrintScreenState extends State<SalePrintScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text("Талон : "),
-                    Text(widget.sale!.id.toString()),
+                    Text(widget.sale.id.toString()),
                   ],
                 ),
                 Row(
@@ -126,7 +122,7 @@ class _SalePrintScreenState extends State<SalePrintScreen> {
                     Text(
                       DateFormat.yMd()
                           .format(DateTime.fromMillisecondsSinceEpoch(
-                              widget.sale!.createdAt))
+                              widget.sale.createdAt))
                           .toString(),
                     ),
                   ],
@@ -137,7 +133,7 @@ class _SalePrintScreenState extends State<SalePrintScreen> {
                     Text(
                       DateFormat.jms()
                           .format(DateTime.fromMillisecondsSinceEpoch(
-                              widget.sale!.createdAt))
+                              widget.sale.createdAt))
                           .toString(),
                     ),
                   ],
@@ -165,7 +161,7 @@ class _SalePrintScreenState extends State<SalePrintScreen> {
                   return Center(child: Text(snapshot.error.toString()));
                 } else if (snapshot.hasData) {
                   if (snapshot.data != null) {
-                    print(snapshot.data!.length);
+                    AppLog.debug(snapshot.data!.length);
                     return ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
@@ -190,21 +186,21 @@ class _SalePrintScreenState extends State<SalePrintScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text("Нийт : Бараа(ууд)"),
-                Text(widget.sale!.total.toString())
+                Text(widget.sale.total.toString())
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text("Төлөх :"),
-                Text(widget.sale!.total.toString())
+                Text(widget.sale.total.toString())
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text("Бэлэн :"),
-                Text(widget.sale!.total.toString())
+                Text(widget.sale.total.toString())
               ],
             ),
             Row(
@@ -215,7 +211,7 @@ class _SalePrintScreenState extends State<SalePrintScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text("НӨАТ : 10%"),
-                Text((widget.sale!.total).toString())
+                Text((widget.sale.total).toString())
               ],
             ),
             Row(
@@ -226,7 +222,7 @@ class _SalePrintScreenState extends State<SalePrintScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text("Ebarimt дүн : "),
-                Text((widget.sale!.total).toString())
+                Text((widget.sale.total).toString())
               ],
             ),
             const Divider(thickness: 0.5),
@@ -244,7 +240,7 @@ class _SalePrintScreenState extends State<SalePrintScreen> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   QrImage(
-                    data: widget.sale!.customerName,
+                    data: widget.sale.customerName,
                     version: QrVersions.auto,
                     size: 150,
                   ),
@@ -266,7 +262,7 @@ class _SalePrintScreenState extends State<SalePrintScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text("Ebarimt.mn дүн: "),
-                              Text((widget.sale!.total).toString())
+                              Text((widget.sale.total).toString())
                             ],
                           ))
                     ],
@@ -288,7 +284,7 @@ class _SalePrintScreenState extends State<SalePrintScreen> {
   Future saveImage(Uint8List bytes) async {
     final appStorage = await getApplicationDocumentsDirectory();
     final file = File('${appStorage.path}/image.png');
-    print(file);
+    AppLog.debug(file);
     file.writeAsBytes(bytes);
   }
 

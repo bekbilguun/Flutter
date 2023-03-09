@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:profile/model/customer_model.dart';
 import 'package:profile/db/notes_database.dart';
 import 'package:profile/widget/button_widget.dart';
-import '../../themes.dart';
-import '../../widget/AuthClipper_widget.dart';
 import 'customers_screen.dart';
 
 class CustomerScreen extends StatelessWidget {
@@ -25,14 +23,15 @@ class CustomerScreen extends StatelessWidget {
     return ThemeSwitchingArea(
       child: Builder(
         builder: (context) => Scaffold(
-          appBar:
-          AppBar(
-            title:Align(
-              alignment: Alignment.center,
-              child: Text(customers == null ? 'Хэрэглэгч нэмэх' : 'Хэрэглэгч засах',style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
-            )
-          ),
-          body:Padding(
+          appBar: AppBar(
+              title: Align(
+            alignment: Alignment.center,
+            child: Text(
+              customers == null ? 'Хэрэглэгч нэмэх' : 'Хэрэглэгч засах',
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+          )),
+          body: Padding(
             padding: const EdgeInsets.symmetric(),
             child: Column(
               children: [
@@ -55,27 +54,30 @@ class CustomerScreen extends StatelessWidget {
                             ))),
                   ),
                 ),
-                Padding(padding: const EdgeInsets.only(left: 30, right: 30, top: 30),child:
-                TextFormField(
-                  controller: phoneController,
-                  decoration: const InputDecoration(
-                      hintText: 'Type here the phone',
-                      labelText: 'phone',
-                      prefixIcon: Icon(Icons.phone),
-                      border: OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.black,
-                            width: 0.75,
-                          ),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
-                          ))),
-                  keyboardType: TextInputType.number,
-                  onChanged: (str) {},
-                  maxLength: 8,
-                ),),
+                Padding(
+                  padding: const EdgeInsets.only(left: 30, right: 30, top: 30),
+                  child: TextFormField(
+                    controller: phoneController,
+                    decoration: const InputDecoration(
+                        hintText: 'Type here the phone',
+                        labelText: 'phone',
+                        prefixIcon: Icon(Icons.phone),
+                        border: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                              width: 0.75,
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10.0),
+                            ))),
+                    keyboardType: TextInputType.number,
+                    onChanged: (str) {},
+                    maxLength: 8,
+                  ),
+                ),
                 const Spacer(),
-                Expanded(child: Align(
+                Expanded(
+                    child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 20.0),

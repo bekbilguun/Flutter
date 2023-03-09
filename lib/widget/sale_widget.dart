@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:profile/model/inner_model.dart';
 import 'package:profile/themes.dart';
+import 'package:profile/utils/app_logger.dart';
 
 class SaleWidget extends StatefulWidget {
   final Inner inner;
@@ -25,7 +26,7 @@ class _SaleWidgetState extends State<SaleWidget> {
       widget.inner.total = _total;
       widget.inner.count = _count;
       widget.refresh();
-      print("_________________SUM TOTAL___________________'$_count'___");
+      AppLog.debug("_________________SUM TOTAL___________________'$_count'___");
     });
   }
 
@@ -58,32 +59,32 @@ class _SaleWidgetState extends State<SaleWidget> {
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                      Text(widget.inner.productId,
-                          style: const TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold)),
-                      Row(
-                        children: <Widget>[
-                          const Text(
-                            'Нэгж үнэ: ',
-                            style:
-                                TextStyle(fontSize: 12.0, fontFamily: 'Roboto'),
+                          Text(widget.inner.productId,
+                              style: const TextStyle(
+                                  fontSize: 22, fontWeight: FontWeight.bold)),
+                          Row(
+                            children: <Widget>[
+                              const Text(
+                                'Нэгж үнэ: ',
+                                style: TextStyle(
+                                    fontSize: 12.0, fontFamily: 'Roboto'),
+                              ),
+                              Text(
+                                NumberFormat.simpleCurrency(name: "₮")
+                                    .format(int.parse(widget.inner.price))
+                                    .toString(),
+                                style: const TextStyle(
+                                    fontSize: 14.0,
+                                    fontFamily: 'Roboto',
+                                    color: MyThemes.primary),
+                              ),
+                            ],
                           ),
-                          Text(
-                            NumberFormat.simpleCurrency(name: "₮")
-                                .format(int.parse(widget.inner.price))
-                                .toString(),
-                            style: const TextStyle(
-                                fontSize: 14.0,
-                                fontFamily: 'Roboto',
-                                color: MyThemes.primary),
-                          ),
-                        ],
-                      ),
-                    ]),
+                        ]),
                   ),
                 ),
                 Padding(
-                  padding:const EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   child: Column(
                     children: [
                       Row(

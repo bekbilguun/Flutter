@@ -56,7 +56,7 @@ class ProductWidget extends StatelessWidget {
                                 const SizedBox(
                                   width: 5,
                                 ),
-                                Icon(
+                                const Icon(
                                   Icons.arrow_forward,
                                   color: MyThemes.iconColor,
                                 ),

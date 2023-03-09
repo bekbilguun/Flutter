@@ -4,6 +4,7 @@ import 'package:profile/model/customer_model.dart';
 import 'package:profile/db/notes_database.dart';
 import 'package:profile/page/sale/sale_product_screen.dart';
 import 'package:profile/page/sale/sales_screen.dart';
+import 'package:profile/utils/app_logger.dart';
 import 'package:profile/widget/customers_widget.dart';
 
 import '../../themes.dart';
@@ -25,8 +26,7 @@ class _SaleScreenState extends State<SaleScreen> {
               appBar: AppBar(
                 title: const Text(
                   'Худалдан авагч',
-                  style: TextStyle(
-                      fontSize: 22, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 actions: [
                   IconButton(
@@ -38,7 +38,7 @@ class _SaleScreenState extends State<SaleScreen> {
                       await Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SalesScreen()));
+                              builder: (context) => const SalesScreen()));
                     },
                   ),
                 ],
@@ -77,7 +77,7 @@ class _SaleScreenState extends State<SaleScreen> {
                                 child: Text(snapshot.error.toString()));
                           } else if (snapshot.hasData) {
                             if (snapshot.data != null) {
-                              print(snapshot.data);
+                              AppLog.info(snapshot.data);
                               return ListView.builder(
                                 itemBuilder: (context, index) => CustomerWidget(
                                   customer: snapshot.data![index],

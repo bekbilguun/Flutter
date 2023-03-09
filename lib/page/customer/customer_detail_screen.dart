@@ -5,13 +5,12 @@ import 'package:profile/db/notes_database.dart';
 import 'package:profile/model/inner_model.dart';
 import 'package:profile/page/price/price_screen.dart';
 import 'package:profile/page/customer/customer_screen.dart';
+import 'package:profile/utils/app_logger.dart';
 import 'package:profile/widget/inner_widget.dart';
 
 import '../../model/price_model.dart';
 import '../../themes.dart';
 import '../../widget/AuthClipper_widget.dart';
-import '../../widget/appbar_widget.dart';
-
 
 class CustomerDetailScreen extends StatefulWidget {
   final Customers? customer;
@@ -35,11 +34,13 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
     return ThemeSwitchingArea(
       child: Builder(
         builder: (context) => Scaffold(
-          appBar:AppBar(
-            title: const Text('Хэрэглэгчийн мэдээлэл',),
+          appBar: AppBar(
+            title: const Text(
+              'Хэрэглэгчийн мэдээлэл',
+            ),
             actions: [
               IconButton(
-                icon:const Icon(
+                icon: const Icon(
                   Icons.edit,
                   color: Colors.white,
                 ),
@@ -86,28 +87,37 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                     Column(
                       children: [
                         Padding(
-                          padding:const EdgeInsets.symmetric(horizontal: 20 ,vertical: 5),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 5),
                           child: Row(
                             children: <Widget>[
-                              const Text('Нэр: ',
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              const Text(
+                                'Нэр: ',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
                               ),
-                              Expanded(child: Text(widget.customer!.name,
-                                style:const TextStyle(fontSize: 18),
-                              ),)
-
+                              Expanded(
+                                child: Text(
+                                  widget.customer!.name,
+                                  style: const TextStyle(fontSize: 18),
+                                ),
+                              )
                             ],
                           ),
                         ),
                         Padding(
-                          padding:const EdgeInsets.symmetric(horizontal: 20 ,vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
                           child: Row(
                             children: <Widget>[
-                              const Text('Утас: ',
-                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                              const Text(
+                                'Утас: ',
+                                style: TextStyle(
+                                    fontSize: 18, fontWeight: FontWeight.bold),
                               ),
-                              Text(widget.customer!.phone,
-                                style:const TextStyle(fontSize: 18),
+                              Text(
+                                widget.customer!.phone,
+                                style: const TextStyle(fontSize: 18),
                               ),
                             ],
                           ),
@@ -117,11 +127,12 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                   ],
                 ),
                 const Padding(
-                  padding: EdgeInsets.only(bottom: 15 ,top: 10),
+                  padding: EdgeInsets.only(bottom: 15, top: 10),
                   child: Center(
                     child: Text(
                       'Бүтээгдэхүүний лист',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -129,15 +140,17 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                   child: Padding(
                     padding: const EdgeInsets.all(0.0),
                     child: FutureBuilder<List<Inner>?>(
-                      future: DatabaseHelper.innerPriceCustomer(widget.customer),
+                      future:
+                          DatabaseHelper.innerPriceCustomer(widget.customer),
                       builder: (context, AsyncSnapshot<List<Inner>?> snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
                           return const CircularProgressIndicator();
                         } else if (snapshot.hasError) {
                           return Center(child: Text(snapshot.error.toString()));
                         } else if (snapshot.hasData) {
                           if (snapshot.data != null) {
-                            print(snapshot.data!.length);
+                            AppLog.debug(snapshot.data!.length);
 
                             return ListView.builder(
                               scrollDirection: Axis.vertical,
@@ -147,22 +160,26 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                 inner: snapshot.data![index],
                                 onTap: () async {
                                   final Prices priceModel = Prices(
-                                      customerId: snapshot.data![index].customerId,
-                                      productId: snapshot.data![index].productId,
+                                      customerId:
+                                          snapshot.data![index].customerId,
+                                      productId:
+                                          snapshot.data![index].productId,
                                       id: snapshot.data![index].id,
                                       price: snapshot.data![index].price);
                                   final Customers customerModel = Customers(
                                       name: snapshot.data![index].name,
                                       phone: snapshot.data![index].phone,
-                                      id: int.parse(snapshot.data![index].customerId));
+                                      id: int.parse(
+                                          snapshot.data![index].customerId));
                                   await Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) => PriceScreen(
-                                            prices: priceModel,
-                                            customer: customerModel,
-                                          )));
-                                  setState(() {});},
+                                                prices: priceModel,
+                                                customer: customerModel,
+                                              )));
+                                  setState(() {});
+                                },
                                 onLongPress: () async {
                                   showDialog(
                                       context: context,
@@ -174,11 +191,12 @@ class _CustomerDetailScreenState extends State<CustomerDetailScreen> {
                                             ElevatedButton(
                                               style: ButtonStyle(
                                                   backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      Colors.red)),
+                                                      MaterialStateProperty.all(
+                                                          Colors.red)),
                                               onPressed: () async {
-                                                await DatabaseHelper.deletePrice(
-                                                    snapshot.data![index].id);
+                                                await DatabaseHelper
+                                                    .deletePrice(snapshot
+                                                        .data![index].id);
                                                 Navigator.pop(context);
                                                 setState(() {});
                                               },

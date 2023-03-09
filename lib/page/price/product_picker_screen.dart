@@ -2,6 +2,7 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:profile/model/product_model.dart';
 import 'package:profile/db/notes_database.dart';
+import 'package:profile/utils/app_logger.dart';
 import 'package:profile/widget/AuthClipper_widget.dart';
 import 'package:profile/widget/product_widget.dart';
 import 'dart:async';
@@ -9,7 +10,6 @@ import 'dart:async';
 import '../../themes.dart';
 
 class ProductPickerScreen extends StatefulWidget {
-
   const ProductPickerScreen({Key? key}) : super(key: key);
 
   @override
@@ -35,15 +35,14 @@ class Debounce {
 }
 
 class ProductPickerScreenState extends State<ProductPickerScreen> {
-  final Debounce _debounce = Debounce(Duration(milliseconds: 1000));
+  final Debounce _debounce = Debounce(const Duration(milliseconds: 1000));
   Icon customIcon = const Icon(Icons.search);
   String keyword = "";
 
   void _setKeyword(String keyword) {
     setState(() {
       this.keyword = keyword;
-      print('----------------customSearchBar-----------');
-      print(keyword);
+      AppLog.debug('-------customSearchBar: $keyword');
     });
   }
 
@@ -52,7 +51,7 @@ class ProductPickerScreenState extends State<ProductPickerScreen> {
     return ThemeSwitchingArea(
       child: Builder(
         builder: (context) => Scaffold(
-            appBar: AppBar(title: Text(''), centerTitle: true),
+            appBar: AppBar(title: const Text(''), centerTitle: true),
             body: Padding(
                 padding: const EdgeInsets.symmetric(),
                 child: Column(
@@ -80,15 +79,15 @@ class ProductPickerScreenState extends State<ProductPickerScreen> {
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      children: <Widget>[
+                                      children: const <Widget>[
                                         Icon(
                                           Icons.person_outline,
                                           color: MyThemes.iconColor,
                                         ),
-                                        const SizedBox(
+                                        SizedBox(
                                           width: 10,
                                         ),
-                                        const Text(
+                                        Text(
                                           'Product picker',
                                           style: TextStyle(
                                               fontSize: 22,
@@ -99,7 +98,7 @@ class ProductPickerScreenState extends State<ProductPickerScreen> {
                                     Padding(
                                       padding: const EdgeInsets.only(top: 30),
                                       child: Container(
-                                        padding: EdgeInsets.all(5),
+                                        padding: const EdgeInsets.all(5),
                                         decoration: BoxDecoration(
                                             color: Colors.grey[200],
                                             borderRadius:

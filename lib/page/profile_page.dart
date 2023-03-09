@@ -1,5 +1,4 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:profile/model/user.dart';
 import 'package:profile/page/edit_profile_page.dart';
@@ -14,11 +13,13 @@ import 'package:profile/widget/numbers_widget.dart';
 import 'package:profile/widget/profile_widget.dart';
 
 class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+
   @override
-  _ProfilePageState createState() => _ProfilePageState();
+  ProfilePageState createState() => ProfilePageState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final user = UserPreferences.getUser();
@@ -34,7 +35,8 @@ class _ProfilePageState extends State<ProfilePage> {
                 imagePath: user.imagePath,
                 onClicked: () async {
                   await Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => EditProfilePage()),
+                    MaterialPageRoute(
+                        builder: (context) => const EditProfilePage()),
                   );
                   setState(() {});
                 },
@@ -63,8 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     child: buildSalesButton(),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: buildSaleButton(),
                   ),
                 ],

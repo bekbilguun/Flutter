@@ -1,23 +1,29 @@
-import 'package:flutter/material.dart';
-
-class Sale{
+class Sale {
   final int? id;
   final int? customerId;
   final String customerName;
   final double? total;
   final int createdAt;
 
-  Sale({required this.id, required this.customerId, required this.customerName, required this.total ,required this.createdAt});
+  Sale(
+      {required this.id,
+      required this.customerId,
+      required this.customerName,
+      required this.total,
+      required this.createdAt});
 
-  factory Sale.fromJson(Map<String, dynamic> json) =>Sale(
-      id: json['id'], customerId: json['customerId'], customerName: json['customerName'], total: double.parse(json['total'].toString()) , createdAt: json['createdAt']
-  );
+  factory Sale.fromJson(Map<String, dynamic> json) => Sale(
+      id: json['id'],
+      customerId: json['customerId'],
+      customerName: json['customerName'],
+      total: double.parse(json['total'].toString()),
+      createdAt: json['createdAt']);
 
-  Map<String,dynamic> toJson()=>{
-    'id':id,
-    'customerId': customerId,
-    'customerName': customerName,
-    'total': total,
-    'createdAt': createdAt
-  };
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'customerId': customerId,
+        'customerName': customerName,
+        'total': total,
+        'createdAt': createdAt
+      };
 }

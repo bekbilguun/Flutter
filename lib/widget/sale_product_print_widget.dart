@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:profile/model/sale_product_model.dart';
 
 class SaleProductPrintWidget extends StatelessWidget {

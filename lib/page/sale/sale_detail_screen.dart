@@ -5,16 +5,15 @@ import 'package:profile/db/notes_database.dart';
 import 'package:profile/model/sale_model.dart';
 import 'package:profile/model/sale_product_model.dart';
 import 'package:profile/page/sale/sale_print_screen.dart';
+import 'package:profile/utils/app_logger.dart';
 import 'package:profile/widget/sale_products_widget.dart';
-
 import '../../themes.dart';
 import '../../widget/AuthClipper_widget.dart';
-import '../../widget/button_widget.dart';
 
 class SaleDetailScreen extends StatefulWidget {
-  final Sale? sale;
+  final Sale sale;
 
-  const SaleDetailScreen({Key? key, this.sale}) : super(key: key);
+  const SaleDetailScreen({Key? key, required this.sale}) : super(key: key);
 
   @override
   State<SaleDetailScreen> createState() => _SaleDetailScreenState();
@@ -29,15 +28,15 @@ class _SaleDetailScreenState extends State<SaleDetailScreen> {
           appBar: AppBar(
             title: Row(
               children: [
-                Text('Sale detail '),
+                const Text('Sale detail'),
                 Expanded(
                     child: Text(
-                      widget.sale!.customerName,
-                      style: const TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold),
-                    ))
+                  widget.sale.customerName,
+                  style: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
+                ))
               ],
-            ) ,
+            ),
             centerTitle: true,
           ),
           floatingActionButton: FloatingActionButton(
@@ -46,7 +45,9 @@ class _SaleDetailScreenState extends State<SaleDetailScreen> {
               await Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => SalePrintScreen(sale: widget.sale,)));
+                      builder: (context) => SalePrintScreen(
+                            sale: widget.sale,
+                          )));
               setState(() {});
             },
             child: const Icon(Icons.print),
@@ -85,7 +86,7 @@ class _SaleDetailScreenState extends State<SaleDetailScreen> {
                                   ),
                                   Text(
                                     NumberFormat.simpleCurrency(name: "₮")
-                                        .format(widget.sale!.total)
+                                        .format(widget.sale.total)
                                         .toString(),
                                     style: const TextStyle(fontSize: 18),
                                   ),
@@ -110,7 +111,7 @@ class _SaleDetailScreenState extends State<SaleDetailScreen> {
                                     DateFormat.yMMMd()
                                         .format(
                                             DateTime.fromMillisecondsSinceEpoch(
-                                                widget.sale!.createdAt))
+                                                widget.sale.createdAt))
                                         .toString(),
                                     style: const TextStyle(fontSize: 18),
                                   ),
@@ -147,8 +148,7 @@ class _SaleDetailScreenState extends State<SaleDetailScreen> {
                           return Center(child: Text(snapshot.error.toString()));
                         } else if (snapshot.hasData) {
                           if (snapshot.data != null) {
-                            print(snapshot.data!.length);
-
+                            AppLog.debug(snapshot.data!.length);
                             return ListView.builder(
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,

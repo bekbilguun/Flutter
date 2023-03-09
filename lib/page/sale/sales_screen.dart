@@ -1,13 +1,7 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:profile/db/notes_database.dart';
-import 'package:profile/model/sale_model.dart';
-import 'package:profile/page/sale/sale_detail_screen.dart';
-import 'package:profile/widget/sales_widget.dart';
 import 'package:profile/widget/tabVeiws_widget.dart';
-
-import '../../themes.dart';
 
 class SalesScreen extends StatefulWidget {
   const SalesScreen({Key? key}) : super(key: key);

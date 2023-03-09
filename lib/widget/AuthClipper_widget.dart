@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:profile/themes.dart';
 
 class AuthClipper extends CustomClipper<Path> {
   @override

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:profile/model/customer_model.dart';
 import 'package:profile/db/notes_database.dart';
 import 'package:profile/page/customer/customer_detail_screen.dart';
+import 'package:profile/utils/app_logger.dart';
 import 'package:profile/widget/customers_widget.dart';
 import '../../themes.dart';
 import '../../widget/AuthClipper_widget.dart';
@@ -51,22 +52,22 @@ class _CustomersScreenState extends State<CustomersScreen> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20 , vertical: 20),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
+                          children: const <Widget>[
                             Icon(
                               Icons.person_outline,
                               color: MyThemes.iconColor,
                             ),
-                            const SizedBox(
+                            SizedBox(
                               width: 10,
                             ),
-                            const Text(
+                            Text(
                               'Хэрэглэгчид',
                               style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold),
+                                  fontSize: 22, fontWeight: FontWeight.bold),
                             ),
                           ],
                         ),
@@ -75,8 +76,8 @@ class _CustomersScreenState extends State<CustomersScreen> {
                   ),
                   Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.all(0.0),
-                      child: FutureBuilder<List<Customers>?>(
+                    padding: const EdgeInsets.all(0.0),
+                    child: FutureBuilder<List<Customers>?>(
                       future: DatabaseHelper.getAllCustomers(),
                       builder:
                           (context, AsyncSnapshot<List<Customers>?> snapshot) {
@@ -87,7 +88,7 @@ class _CustomersScreenState extends State<CustomersScreen> {
                           return Center(child: Text(snapshot.error.toString()));
                         } else if (snapshot.hasData) {
                           if (snapshot.data != null) {
-                            print(snapshot.data);
+                            AppLog.debug(snapshot.data);
                             return ListView.builder(
                               scrollDirection: Axis.vertical,
                               itemBuilder: (context, index) => CustomerWidget(

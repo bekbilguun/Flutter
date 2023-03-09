@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:profile/utils/app_logger.dart';
 import 'package:profile/widget/sales_widget.dart';
 
 import '../model/sale_model.dart';
@@ -64,8 +65,10 @@ class TabViewsWidget extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                     child: Text(
                       'Тоо',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.purple),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.purple),
                     ),
                   ),
                   Padding(
@@ -90,9 +93,8 @@ class TabViewsWidget extends StatelessWidget {
                     if (snapshot.hasError) {
                       return const Text('Error');
                     } else if (snapshot.hasData) {
-                      print(
-                          "___________________________________snapshot.data.toString()");
-                      print(snapshot.data.toString());
+                      AppLog.debug(
+                          "__snapshot.data: ${snapshot.data.toString()}");
 
                       return Padding(
                           padding: const EdgeInsets.only(
@@ -103,7 +105,9 @@ class TabViewsWidget extends StatelessWidget {
                               Text(
                                 snapshot.data['count'].toString(),
                                 style: const TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.bold,color: Colors.purple),
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.purple),
                               ),
                               Text(
                                 NumberFormat.simpleCurrency(name: "₮")

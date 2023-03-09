@@ -7,10 +7,9 @@ import 'package:profile/model/inner_model.dart';
 import 'package:profile/model/sale_model.dart';
 import 'package:profile/model/sale_product_model.dart';
 import 'package:profile/page/sale/sales_screen.dart';
+import 'package:profile/utils/app_logger.dart';
 import 'package:profile/widget/sale_widget.dart';
-
 import '../../themes.dart';
-import '../../widget/AuthClipper_widget.dart';
 import '../../widget/button_widget.dart';
 
 class SaleProductScreen extends StatefulWidget {
@@ -85,7 +84,6 @@ class _SaleProductScreenState extends State<SaleProductScreen> {
                           return Center(child: Text(snapshot.error.toString()));
                         } else if (snapshot.hasData) {
                           if (snapshot.data != null) {
-                            print(snapshot.data!.length);
                             return SaleProductsListView(
                               products: snapshot.data!,
                               sale: widget.sale,
@@ -135,7 +133,7 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
       for (var element in widget.products) {
         _total += element.total;
       }
-      print("-----------'$_total'");
+      AppLog.wtf("-----------'$_total'");
     });
   }
 
@@ -145,7 +143,7 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
       children: [
         Expanded(
             child: Padding(
-          padding: EdgeInsets.all(0),
+          padding: const EdgeInsets.all(0),
           child: ListView.builder(
             scrollDirection: Axis.vertical,
             shrinkWrap: true,
@@ -157,71 +155,71 @@ class _SaleProductsListViewState extends State<SaleProductsListView> {
             itemCount: widget.products.length,
           ),
         )),
-         Container(
-           color: MyThemes.primary.shade300,
-           child: Column(
-             children: [
-               Row(
-                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                 children: [
-                   const Padding(
-                     padding: EdgeInsets.only(left: 20,top: 10),
-                     child: Text(
-                       'Нийт үнэ:',
-                       style:
-                       TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                     ),
-                   ),
-                   Padding(
-                     padding: const EdgeInsets.only(right: 20),
-                     child: Text(
-                       NumberFormat.simpleCurrency(name: "₮")
-                           .format(_total)
-                           .toString(),
-                       style: const TextStyle(
-                           fontSize: 18, fontWeight: FontWeight.bold),
-                     ),
-                   ),
-                 ],
-               ),
-               Padding(
-                 padding: EdgeInsets.only(bottom: 10),
-                 child: ButtonWidget(
-                   text: 'Дуусгах',
-                   onClicked: () async {
-                     final Sale saleModel = Sale(
-                       id: widget.sale?.id,
-                       customerId: widget.customer!.id,
-                       customerName: widget.customer!.name,
-                       createdAt: DateTime.now().millisecondsSinceEpoch,
-                       total: _total,
-                     );
-                     final saleId = await DatabaseHelper.addSale(saleModel);
-                     for (var element in widget.products) {
-                       final SaleProduct saleproductModel = SaleProduct(
-                         id: widget.sale?.id,
-                         saleId: saleId,
-                         customerId: widget.customer!.id,
-                         productId: widget.customer!.id,
-                         productName: element.productId,
-                         total: element.total,
-                         price: double.parse(element.price),
-                         count: element.count,
-                       );
-                       if (element.count > 0) {
-                         await DatabaseHelper.addSaleProduct(saleproductModel);
-                       }
-                     }
+        Container(
+          color: MyThemes.primary.shade300,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20, top: 10),
+                    child: Text(
+                      'Нийт үнэ:',
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 20),
+                    child: Text(
+                      NumberFormat.simpleCurrency(name: "₮")
+                          .format(_total)
+                          .toString(),
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: ButtonWidget(
+                  text: 'Дуусгах',
+                  onClicked: () async {
+                    final Sale saleModel = Sale(
+                      id: widget.sale?.id,
+                      customerId: widget.customer!.id,
+                      customerName: widget.customer!.name,
+                      createdAt: DateTime.now().millisecondsSinceEpoch,
+                      total: _total,
+                    );
+                    final saleId = await DatabaseHelper.addSale(saleModel);
+                    for (var element in widget.products) {
+                      final SaleProduct saleproductModel = SaleProduct(
+                        id: widget.sale?.id,
+                        saleId: saleId,
+                        customerId: widget.customer!.id,
+                        productId: widget.customer!.id,
+                        productName: element.productId,
+                        total: element.total,
+                        price: double.parse(element.price),
+                        count: element.count,
+                      );
+                      if (element.count > 0) {
+                        await DatabaseHelper.addSaleProduct(saleproductModel);
+                      }
+                    }
 
-                     await Navigator.push(context,
-                         MaterialPageRoute(builder: (context) => SalesScreen()));
-                     setState(() {});
-                   },
-                 ),
-               )
-             ],
-           ),
-         )
+                    await Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => SalesScreen()));
+                    setState(() {});
+                  },
+                ),
+              )
+            ],
+          ),
+        )
       ],
     );
   }

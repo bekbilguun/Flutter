@@ -39,12 +39,9 @@ class _PriceScreenState extends State<PriceScreen> {
       child: Builder(
         builder: (context) => Scaffold(
           appBar: AppBar(
-            title:Text(
-              widget.prices == null
-                  ? 'Худалдах үнэ'
-                  : 'Худалдах үнэ засах',
-              style: const TextStyle(
-                  fontSize: 22, fontWeight: FontWeight.bold),
+            title: Text(
+              widget.prices == null ? 'Худалдах үнэ' : 'Худалдах үнэ засах',
+              style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
           ),
           body: Padding(
@@ -82,16 +79,18 @@ class _PriceScreenState extends State<PriceScreen> {
                                   ),
                                 ),
                               ),
-                              Expanded(child: Align(
-                                alignment: Alignment.centerLeft,
-                                child: Container(
-                                  padding: const EdgeInsets.only(),
-                                  child: Text(
-                                    widget.customer!.name,
-                                    style: const TextStyle(fontSize: 18),
+                              Expanded(
+                                child: Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Container(
+                                    padding: const EdgeInsets.only(),
+                                    child: Text(
+                                      widget.customer!.name,
+                                      style: const TextStyle(fontSize: 18),
+                                    ),
                                   ),
                                 ),
-                              ),)
+                              )
                             ],
                           ),
                         ),
@@ -128,7 +127,7 @@ class _PriceScreenState extends State<PriceScreen> {
                                                   // Create the SelectionScreen in the next step.
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          ProductPickerScreen()),
+                                                          const ProductPickerScreen()),
                                                 );
                                                 _setProductId(result);
                                               },
@@ -230,8 +229,6 @@ class _PriceScreenState extends State<PriceScreen> {
                                   ..removeCurrentSnackBar()
                                   ..showSnackBar(const SnackBar(
                                       content: Text('Price бүртгэлтэй байна')));
-                              } else {
-                                Navigator.pop(context);
                               }
                             } else {
                               final Prices updateModel = Prices(
@@ -242,6 +239,7 @@ class _PriceScreenState extends State<PriceScreen> {
                               await DatabaseHelper.updatePrice(updateModel);
                               Navigator.pop(context);
                             }
+
                             setState(() {});
                           },
                         )),

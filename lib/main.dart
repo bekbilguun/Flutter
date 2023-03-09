@@ -14,15 +14,17 @@ Future main() async {
 
   await UserPreferences.init();
 
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  static final String title = 'User Profile';
+  final String title = 'User Profile';
+
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final  user = UserPreferences.myUser;
+    const user = UserPreferences.myUser;
 
     return ThemeProvider(
       initTheme: user.isDarkMode ? MyThemes.darkTheme : MyThemes.lightTheme,
@@ -31,7 +33,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           // theme: ThemeProvider.of(context),
           title: title,
-          home: ProfilePage(),
+          home: const ProfilePage(),
         ),
       ),
     );

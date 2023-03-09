@@ -20,7 +20,7 @@ class ProductsScreenState extends State<ProductsScreen> {
     return ThemeSwitchingArea(
       child: Builder(
         builder: (context) => Scaffold(
-            appBar:AppBar(),
+            appBar: AppBar(),
             floatingActionButton: FloatingActionButton(
               backgroundColor: MyThemes.primary,
               onPressed: () async {
@@ -54,15 +54,15 @@ class ProductsScreenState extends State<ProductsScreen> {
                             horizontal: 20, vertical: 20),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
+                          children: const <Widget>[
                             Icon(
                               Icons.store_mall_directory_outlined,
                               color: MyThemes.iconColor,
                             ),
-                            const SizedBox(
+                            SizedBox(
                               width: 10,
                             ),
-                            const Text(
+                            Text(
                               'Бүтээгдэхүүн',
                               style: TextStyle(
                                   fontSize: 22, fontWeight: FontWeight.bold),
@@ -73,8 +73,7 @@ class ProductsScreenState extends State<ProductsScreen> {
                     ],
                   ),
                   Expanded(
-                    child:
-                    Padding(
+                    child: Padding(
                       padding: const EdgeInsets.all(0),
                       child: FutureBuilder<List<Products>?>(
                         future: DatabaseHelper.getAllProducts(),

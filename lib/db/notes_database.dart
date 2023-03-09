@@ -4,6 +4,7 @@ import 'package:profile/model/price_model.dart';
 import 'package:profile/model/product_model.dart';
 import 'package:profile/model/sale_model.dart';
 import 'package:profile/model/sale_product_model.dart';
+import 'package:profile/utils/app_logger.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -24,7 +25,8 @@ class DatabaseHelper {
   static Future<Database> _getDB() async {
     String path = join(await getDatabasesPath(), _dbName);
     void _updateTableAddColumnV1toV2(Batch batch) {
-      batch.execute("ALTER TABLE CUSTOMERS ADD COLUMN registerNo INTEGER DEFAULT uk00301833");
+      batch.execute(
+          "ALTER TABLE CUSTOMERS ADD COLUMN registerNo INTEGER DEFAULT uk00301833");
     }
 
     void _dropTableEmployeeV2(Batch batch) {
@@ -43,8 +45,7 @@ class DatabaseHelper {
       },
       onUpgrade: (db, oldVersion, newVersion) async {
         var batch = db.batch();
-        print("OLDVERSION:$oldVersion");
-        print("newVersion:$newVersion");
+        AppLog.info("newVersion:$newVersion oldVersion: $oldVersion");
         if (oldVersion < newVersion) {
           _updateTableAddColumnV1toV2(batch);
           _dropTableEmployeeV2(batch);
@@ -56,8 +57,7 @@ class DatabaseHelper {
 
   static Future<int> addCustomer(Customers customers) async {
     final db = await _getDB();
-    print("_______________________IAM__CUSTOMER__ADD________________________");
-    print(customers.toJson());
+    AppLog.debug(customers.toJson());
     return await db.insert("CUSTOMERS", customers.toJson());
   }
 
@@ -77,9 +77,9 @@ class DatabaseHelper {
 
   static Future<List<Customers>?> getAllCustomers() async {
     final db = await _getDB();
-    print("_____________________IAM_CUSTOMERS_LIST_________________________");
+    AppLog.debug("_________IAM_CUSTOMERS_LIST_");
     final List<Map<String, dynamic>> maps = await db.query("CUSTOMERS");
-    print(maps);
+    AppLog.debug(maps);
     if (maps.isEmpty) {
       return null;
     }
@@ -91,7 +91,7 @@ class DatabaseHelper {
 
   static Future<int> addProduct(Products products) async {
     final db = await _getDB();
-    print("____________________IAM__PRODUCT__ADD____________________________");
+    AppLog.debug("________IAM__PRODUCT__ADD____");
     return await db.insert("PRODUCTS", products.toJson());
   }
 
@@ -146,7 +146,7 @@ class DatabaseHelper {
     final count = Sqflite.firstIntValue(await db.rawQuery(
         "SELECT COUNT(*) as count from PRICES WHERE customerId = ? and productId = ?",
         [price.customerId, price.productId]));
-    print("==========checkPrice==COUNT========================'$count'");
+    AppLog.debug("==========checkPrice==COUNT============='$count'");
     return count!;
   }
 
@@ -160,7 +160,7 @@ class DatabaseHelper {
   }
 
   static Future<int> updatePrice(Prices prices) async {
-    print("_______UPDATE_________updatePrice");
+    AppLog.debug("_______UPDATE_________updatePrice");
     final db = await _getDB();
     return await db.update("PRICES", prices.toJson(),
         where: 'id = ?',
@@ -175,13 +175,14 @@ class DatabaseHelper {
 
   static Future<List<Inner>?> innerPriceCustomer(customer) async {
     final db = await _getDB();
-    print("_______selectPrice______IAM_PRICES_LIST______selectPrice________");
+    AppLog.debug(
+        "_______selectPrice______IAM_PRICES_LIST______selectPrice________");
     List list = await db.rawQuery(
         'SELECT p.id , p.price , p.customerId, p.productId, c.name, c.phone, c.id as CUSTOMER_ID FROM PRICES p INNER JOIN CUSTOMERS c ON p.customerId = c.id WHERE c.id=?',
         [customer.id]);
-    print(list);
+    AppLog.debug(list);
     // final List<Map<String, dynamic>> dbList = await db.rawQuery("SELECT p.price, p.customerId, p.productId, c.name FROM PRICES p INNER JOIN CUSTOMERS c ON p.id = c.id");
-    // print(await db.query("CUSTOMERS"));
+    // AppLog.debug(await db.query("CUSTOMERS"));
     if (list.isEmpty) {
       return null;
     }
@@ -190,12 +191,11 @@ class DatabaseHelper {
 
   static Future<List<Prices>?> getAllPrice() async {
     final db = await _getDB();
-    print(
-        "_____________________________IAM_PRICES_LIST___________________________________");
+    AppLog.debug("_____IAM_PRICES_LIST___________");
     final List<Map<String, dynamic>> maps = await db.query("PRICES");
-    print(await db.query("PRICES"));
-    print(await db.query("CUSTOMERS"));
-    print(await db.query("PRODUCTS"));
+    AppLog.debug(await db.query("PRICES"));
+    AppLog.debug(await db.query("CUSTOMERS"));
+    AppLog.debug(await db.query("PRODUCTS"));
     if (maps.isEmpty) {
       return null;
     }
@@ -205,17 +205,17 @@ class DatabaseHelper {
 // ----------------------------------SALE--------------------------------------------
   static Future<int> addSale(Sale sale) async {
     final db = await _getDB();
-    print("____________________IAM__SALE__ADD____________________________");
+    AppLog.debug("________IAM__SALE__ADD____");
     final addsale = await db.insert("SALES", sale.toJson());
-    print(sale.toJson());
+    AppLog.debug(sale.toJson());
     return addsale;
   }
 
   static Future<List<Sale>?> getAllSales() async {
     final db = await _getDB();
-    print("_____________________IAM_Sale_LIST_________________________");
+    AppLog.debug("_________IAM_Sale_LIST_");
     final List<Map<String, dynamic>> maps = await db.query("SALES");
-    print(await db.query("SALES"));
+    AppLog.debug(await db.query("SALES"));
     if (maps.isEmpty) {
       return null;
     }
@@ -227,12 +227,12 @@ class DatabaseHelper {
     int startTimestamp = startDate.millisecondsSinceEpoch;
     int endTimestamp = endDate!.millisecondsSinceEpoch;
     final db = await _getDB();
-    print("_____________________IAM_Sale_DATE_FILTERS_______________");
+    AppLog.debug("_________IAM_Sale_DATE_FILTERS___");
     List list = await db.rawQuery(
         "SELECT * FROM SALES WHERE createdAt > ? and createdAt < ? ORDER BY createdAt DESC",
         [startTimestamp, endTimestamp]);
-    print(list);
-    // print("total: $total");
+    AppLog.debug(list);
+    // AppLog.debug("total: $total");
     if (list.isEmpty) {
       return null;
     }
@@ -246,7 +246,7 @@ class DatabaseHelper {
     final stats = await db.rawQuery(
         "SELECT count(*) as count , sum(total) as total from SALES WHERE createdAt >= ? and createdAt < ?",
         [startTimestamp, endTimestamp]);
-    print("COUNT______: $stats");
+    AppLog.debug("COUNT______: $stats");
     if (stats.isEmpty) {
       return null;
     }
@@ -256,20 +256,19 @@ class DatabaseHelper {
 // -------------------------------SALE-PRODUCT---------------------------------------
   static Future<int> addSaleProduct(SaleProduct saleProduct) async {
     final db = await _getDB();
-    print(
-        "____________________IAM__ADD__SALE__PRODUCT________________________");
-    print(saleProduct.toJson());
+    AppLog.debug("________IAM__ADD__SALE__PRODUCT");
+    AppLog.debug(saleProduct.toJson());
     final addsale = await db.insert("SALE_PRODUCTS", saleProduct.toJson());
-    print(saleProduct.toJson());
+    AppLog.debug(saleProduct.toJson());
     return addsale;
   }
 
-  static Future<List<SaleProduct>?> getAllSaleProducts(Sale) async {
+  static Future<List<SaleProduct>?> getAllSaleProducts(Sale sale) async {
     final db = await _getDB();
-    print("_____________________IAM_Sale_LIST___PRODUCT______________________");
+    AppLog.debug("_________IAM_Sale_LIST___PRODUCT__________");
     final List<Map<String, dynamic>> maps = await db
-        .query("SALE_PRODUCTS", where: 'saleId = ?', whereArgs: [Sale.id]);
-    print(await db.query("SALE_PRODUCTS"));
+        .query("SALE_PRODUCTS", where: 'saleId = ?', whereArgs: [sale.id]);
+    AppLog.debug(await db.query("SALE_PRODUCTS"));
     if (maps.isEmpty) {
       return null;
     }
